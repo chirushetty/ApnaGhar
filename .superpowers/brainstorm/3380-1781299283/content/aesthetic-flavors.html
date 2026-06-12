@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApnaGhar — Pick an Aesthetic Direction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Lora:ital@0;1&family=Yatra+One&family=Baloo+2:wght@400;600;800&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500&family=Limelight&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Work Sans', sans-serif; background: #181410; color: #efe9df; padding: 40px 28px 80px; }
+  .head { max-width: 1240px; margin: 0 auto 32px; }
+  .head h2 { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600; }
+  .head p { color: #a99e8e; margin-top: 6px; font-size: 15px; }
+
+  .grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+
+  .card { cursor: pointer; border: 2px solid #3a322a; border-radius: 4px; overflow: hidden; transition: all .25s; background: #221d17; }
+  .card:hover { border-color: #8c7c64; transform: translateY(-2px); }
+  .card.selected { border-color: #e8c66a; box-shadow: 0 0 0 3px rgba(232,198,106,0.25), 0 12px 36px rgba(0,0,0,0.5); }
+  .card-body { padding: 16px 20px 20px; }
+  .card-body h3 { font-family: 'Fraunces', serif; font-size: 19px; color: #f3ead9; }
+  .card-body p { font-size: 13.5px; color: #a99e8e; margin-top: 5px; line-height: 1.55; }
+  .card.selected .card-body h3::after { content: ' ✓'; color: #e8c66a; }
+
+  .mock { height: 360px; overflow: hidden; position: relative; }
+
+  /* ============ A. ROYAL HERITAGE ============ */
+  .heritage { background: #FAF6EE; background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%236B1F2A' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M40 12 C48 20 52 26 40 38 C28 26 32 20 40 12 Z'/%3E%3Ccircle cx='40' cy='62' r='4'/%3E%3C/g%3E%3C/svg%3E"); padding: 30px 34px; }
+  .heritage .nav { display: flex; justify-content: space-between; font-family: 'Lora', serif; font-size: 12px; color: #6B1F2A; padding-bottom: 12px; border-bottom: 1px solid rgba(201,162,39,0.5); }
+  .heritage .nav b { font-family: 'Rozha One', serif; font-size: 15px; }
+  .heritage .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; margin-top: 26px; align-items: center; }
+  .heritage .kick { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #C9A227; font-family: 'Lora', serif; }
+  .heritage h4 { font-family: 'Rozha One', serif; font-weight: 400; font-size: 27px; color: #6B1F2A; line-height: 1.15; margin: 8px 0 10px; }
+  .heritage h4 em { font-style: normal; color: #C9A227; }
+  .heritage .sub { font-family: 'Lora', serif; font-size: 12px; color: #5d5246; line-height: 1.6; margin-bottom: 16px; }
+  .heritage .btns { display: flex; gap: 10px; }
+  .heritage .b1 { background: #6B1F2A; color: #FAF3E3; font-family: 'Lora', serif; font-size: 11px; padding: 9px 16px; border: none; }
+  .heritage .b2 { background: transparent; color: #6B1F2A; font-family: 'Lora', serif; font-size: 11px; padding: 9px 16px; border: 1px solid #C9A227; }
+  .heritage .arch { width: 100%; aspect-ratio: 3/4; max-width: 170px; justify-self: center; object-fit: cover; clip-path: url(#arch2); }
+  .heritage .rule { display: flex; align-items: center; gap: 10px; margin-top: 22px; }
+  .heritage .rule::before, .heritage .rule::after { content: ''; flex: 1; height: 3px; border-top: 1px solid #C9A227; border-bottom: 1px solid #C9A227; }
+  .heritage .dia { width: 7px; height: 7px; background: #C9A227; transform: rotate(45deg); }
+
+  /* ============ B. VIBRANT BAZAAR ============ */
+  .bazaar { background: #FFF3D6; padding: 0; position: relative; }
+  .bazaar .bunting { display: flex; }
+  .bazaar .bunting span { flex: 1; height: 18px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+  .bazaar .inner { padding: 18px 34px 30px; }
+  .bazaar .nav { display: flex; justify-content: space-between; align-items: center; font-family: 'Baloo 2', sans-serif; font-size: 12px; font-weight: 600; color: #B3186D; }
+  .bazaar .nav b { font-family: 'Yatra One', cursive; font-size: 18px; color: #E8540C; }
+  .bazaar h4 { font-family: 'Yatra One', cursive; font-weight: 400; font-size: 30px; line-height: 1.15; margin: 20px 0 8px; color: #B3186D; text-shadow: 2px 2px 0 #FFD34E; }
+  .bazaar .sub { font-family: 'Baloo 2', sans-serif; font-size: 13px; color: #7a4a12; max-width: 320px; line-height: 1.5; }
+  .bazaar .chips { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .bazaar .chip { font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 11px; padding: 7px 14px; border-radius: 999px; color: #fff; }
+  .bazaar .b1 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 13px; margin-top: 18px; background: #E8540C; color: #fff; border: none; padding: 11px 22px; border-radius: 999px; box-shadow: 3px 3px 0 #B3186D; display: inline-block; }
+  .bazaar .rangoli { position: absolute; right: -30px; bottom: -30px; width: 160px; height: 160px; border-radius: 50%; background: repeating-conic-gradient(#E8540C 0 15deg, #FFD34E 15deg 30deg, #B3186D 30deg 45deg, #0E8C8C 45deg 60deg); opacity: 0.85; }
+  .bazaar .rangoli::after { content: ''; position: absolute; inset: 22%; border-radius: 50%; background: #FFF3D6; }
+
+  /* ============ C. MODERN CRAFT ============ */
+  .craft { background: #F4EFE6; padding: 30px 34px; background-image: repeating-linear-gradient(0deg, rgba(44,62,80,0.025) 0 1px, transparent 1px 7px), repeating-linear-gradient(90deg, rgba(44,62,80,0.025) 0 1px, transparent 1px 7px); }
+  .craft .nav { display: flex; justify-content: space-between; font-size: 11.5px; letter-spacing: 0.08em; color: #2C3E50; }
+  .craft .nav b { font-family: 'Fraunces', serif; font-size: 15px; letter-spacing: 0; }
+  .craft .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 34px; align-items: center; }
+  .craft .tag { display: inline-block; font-size: 9.5px; letter-spacing: 0.25em; text-transform: uppercase; color: #C4593B; border: 1px solid #C4593B; padding: 4px 10px; }
+  .craft h4 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 26px; color: #2C3E50; line-height: 1.2; margin: 12px 0 10px; }
+  .craft .sub { font-size: 12.5px; color: #6b6357; line-height: 1.65; margin-bottom: 18px; }
+  .craft .b1 { background: #C4593B; color: #fff; font-size: 11.5px; letter-spacing: 0.06em; padding: 11px 20px; border: none; }
+  .craft .imgblock { position: relative; }
+  .craft .imgblock img { width: 100%; aspect-ratio: 4/3.4; object-fit: cover; display: block; }
+  .craft .imgblock::after { content: ''; position: absolute; inset: 10px -10px -10px 10px; border: 1.5px solid #C4593B; z-index: -0; pointer-events: none; }
+  .craft .motif { display: flex; gap: 14px; margin-top: 20px; opacity: 0.75; }
+  .craft .motif span { width: 22px; height: 22px; background: #2C3E50; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+  .craft .motif span:nth-child(2n) { background: #C4593B; clip-path: circle(38%); }
+
+  /* ============ D. ART DECO BOMBAY ============ */
+  .deco { background: #10312E; padding: 30px 34px; position: relative; overflow: hidden; }
+  .deco .sunburst { position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 480px; height: 240px; background: repeating-conic-gradient(from 180deg at 50% 0%, rgba(176,141,62,0.22) 0 4deg, transparent 4deg 12deg); }
+  .deco .nav { display: flex; justify-content: space-between; font-family: 'Josefin Sans', sans-serif; font-weight: 300; font-size: 11.5px; letter-spacing: 0.2em; color: #D8CBA8; position: relative; }
+  .deco .nav b { font-family: 'Limelight', cursive; font-size: 16px; color: #E2C275; letter-spacing: 0.1em; }
+  .deco .center { text-align: center; margin-top: 40px; position: relative; }
+  .deco .frame-line { width: 110px; height: 1px; background: linear-gradient(90deg, transparent, #B08D3E, transparent); margin: 0 auto 14px; }
+  .deco .est { font-family: 'Josefin Sans', sans-serif; font-size: 9px; letter-spacing: 0.5em; color: #9FC9BE; text-transform: uppercase; }
+  .deco h4 { font-family: 'Limelight', cursive; font-weight: 400; font-size: 30px; color: #E2C275; margin: 12px 0 8px; letter-spacing: 0.04em; }
+  .deco .sub { font-family: 'Josefin Sans', sans-serif; font-weight: 300; font-size: 12.5px; color: #BFD9D0; max-width: 320px; margin: 0 auto 20px; line-height: 1.7; }
+  .deco .b1 { font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; background: transparent; color: #E2C275; border: 1px solid #B08D3E; padding: 12px 26px; }
+  .deco .geo { display: flex; justify-content: center; gap: 0; margin-top: 26px; }
+  .deco .geo span { width: 34px; height: 17px; border: 1px solid rgba(159,201,190,0.5); border-bottom: none; border-radius: 34px 34px 0 0; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <clipPath id="arch2" clipPathUnits="objectBoundingBox">
+      <path d="M0,1 L0,0.42 C0,0.24 0.07,0.13 0.2,0.09 C0.3,0.06 0.4,0.055 0.45,0.025 C0.47,0.012 0.49,0.004 0.5,0 C0.51,0.004 0.53,0.012 0.55,0.025 C0.6,0.055 0.7,0.06 0.8,0.09 C0.93,0.13 1,0.24 1,0.42 L1,1 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<div class="head">
+  <h2>Which aesthetic direction feels right for ApnaGhar?</h2>
+  <p>Each mockup shows how the homepage hero would open in that style. Click one to select it, then return to the terminal.</p>
+</div>
+
+<div class="grid">
+
+  <!-- A: Royal Heritage -->
+  <div class="card" data-choice="royal-heritage" onclick="toggleSelect(this)">
+    <div class="mock heritage">
+      <div class="nav"><b>अपना घर ApnaGhar</b><span>Buy · Rent · List Property</span></div>
+      <div class="hero">
+        <div>
+          <div class="kick">Since every home is a palace</div>
+          <h4>Find a home worthy of <em>your story</em></h4>
+          <div class="sub">From heritage havelis in Jaipur to sea-facing flats in Mumbai.</div>
+          <div class="btns"><button class="b1">Explore Properties</button><button class="b2">List Your Home</button></div>
+        </div>
+        <img class="arch" src="https://images.unsplash.com/photo-1599661046289-e31897846e41?w=400&q=70" alt="">
+      </div>
+      <div class="rule"><span class="dia"></span></div>
+    </div>
+    <div class="card-body">
+      <h3>A — Royal Heritage (Heritage Ivory)</h3>
+      <p>Aged-sandstone ivory, maroon &amp; gold, jharokha arches, Rozha One + Lora. Luxurious and timeless — like a haveli. This is what you saw on the previous screen.</p>
+    </div>
+  </div>
+
+  <!-- B: Vibrant Bazaar -->
+  <div class="card" data-choice="vibrant-bazaar" onclick="toggleSelect(this)">
+    <div class="mock bazaar">
+      <div class="bunting">
+        <span style="background:#E8540C"></span><span style="background:#FFD34E"></span><span style="background:#B3186D"></span><span style="background:#0E8C8C"></span><span style="background:#E8540C"></span><span style="background:#FFD34E"></span><span style="background:#B3186D"></span><span style="background:#0E8C8C"></span><span style="background:#E8540C"></span><span style="background:#FFD34E"></span>
+      </div>
+      <div class="inner">
+        <div class="nav"><b>अपना घर!</b><span>Buy · Rent · List</span></div>
+        <h4>Ghar dhoondna?<br>Ho jayega!</h4>
+        <div class="sub">Mumbai se Jaipur tak — your dream home is waiting in the gali next door.</div>
+        <div class="chips">
+          <span class="chip" style="background:#E8540C">Mumbai</span>
+          <span class="chip" style="background:#B3186D">Delhi</span>
+          <span class="chip" style="background:#0E8C8C">Bengaluru</span>
+          <span class="chip" style="background:#cf9f06">Jaipur</span>
+        </div>
+        <button class="b1">Shuru Karein →</button>
+      </div>
+      <div class="rangoli"></div>
+    </div>
+    <div class="card-body">
+      <h3>B — Vibrant Bazaar</h3>
+      <p>Marigold, rani pink, turquoise; bunting, rangoli, hand-painted-sign energy with Yatra One. Loud, joyful, street-festival India.</p>
+    </div>
+  </div>
+
+  <!-- C: Modern Craft -->
+  <div class="card" data-choice="modern-craft" onclick="toggleSelect(this)">
+    <div class="mock craft">
+      <div class="nav"><b>Apna Ghar</b><span>BUY&nbsp;&nbsp;RENT&nbsp;&nbsp;LIST</span></div>
+      <div class="hero">
+        <div>
+          <span class="tag">Homes across India</span>
+          <h4>Thoughtfully found. Honestly listed.</h4>
+          <div class="sub">A calmer way to search — terracotta courtyards, indigo evenings, and homes chosen with care.</div>
+          <button class="b1">Browse Homes</button>
+          <div class="motif"><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="imgblock">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=70" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Modern Craft</h3>
+      <p>Khadi-weave texture, terracotta &amp; indigo, block-print motifs used sparingly, Fraunces + Work Sans. Premium D2C calm — Fabindia/Nicobar energy.</p>
+    </div>
+  </div>
+
+  <!-- D: Art Deco Bombay -->
+  <div class="card" data-choice="art-deco-bombay" onclick="toggleSelect(this)">
+    <div class="mock deco">
+      <div class="sunburst"></div>
+      <div class="nav"><b>APNA GHAR</b><span>BUY — RENT — LIST</span></div>
+      <div class="center">
+        <div class="frame-line"></div>
+        <div class="est">Estd · Bombay · 2026</div>
+        <h4>Residences of Distinction</h4>
+        <div class="sub">From Marine Drive deco towers to garden bungalows — find your address in the city of dreams.</div>
+        <button class="b1">View Residences</button>
+        <div class="geo"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D — Art Deco Bombay</h3>
+      <p>1930s Bombay Deco: dark teal, brass &amp; mint, sunburst geometry, Limelight + Josefin Sans. Retro-sophisticated and city-proud.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

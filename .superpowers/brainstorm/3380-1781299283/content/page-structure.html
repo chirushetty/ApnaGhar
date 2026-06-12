@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApnaGhar — Home Page Structure</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF6E6; --marigold: #F2A007; --flame: #E8540C;
+    --rani: #B3186D; --teal: #0E8C8C; --ink: #3A2415; --sun: #FFD34E;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Baloo 2', sans-serif; background: #241c14; color: #efe9df; padding: 36px 20px 80px; }
+  .head { max-width: 860px; margin: 0 auto 26px; }
+  .head h2 { font-size: 26px; }
+</style>
+<style>
+  .head p { color: #b0a28d; margin-top: 6px; font-size: 14.5px; }
+
+  .phone { max-width: 860px; margin: 0 auto; background: var(--cream); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+
+  .blk { position: relative; border-bottom: 2px dashed rgba(58,36,21,0.2); }
+  .blk .label {
+    position: absolute; top: 10px; right: 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; background: var(--ink); color: var(--sun); padding: 4px 12px; border-radius: 999px; z-index: 5;
+  }
+  .blk .num {
+    position: absolute; top: 10px; left: 12px; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--rani); color: #fff; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center; z-index: 5;
+  }
+
+  /* 1 bunting */
+  .bunting { display: flex; }
+  .bunting span { flex: 1; height: 20px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+
+  /* 2 navbar */
+  .navmock { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; }
+  .navmock .logo { font-family: 'Yatra One', cursive; font-size: 20px; color: var(--flame); text-shadow: 1.5px 1.5px 0 var(--sun); }
+  .navmock .links { display: flex; gap: 16px; font-size: 12px; font-weight: 600; color: #8a5a2e; align-items: center; }
+  .navmock .cta { background: var(--teal); color: #fff; padding: 6px 14px; border-radius: 999px; }
+
+  /* 3 hero */
+  .heromock { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 26px; padding: 34px 24px 44px; align-items: center; }
+  .heromock h3 { font-family: 'Yatra One', cursive; font-weight: 400; font-size: 30px; color: var(--rani); text-shadow: 1.5px 1.5px 0 var(--sun); line-height: 1.15; }
+  .heromock .sub { font-size: 13px; color: #8a5a2e; margin: 10px 0 14px; max-width: 300px; }
+  .heromock .btn { display: inline-block; background: var(--flame); color: #fff; font-weight: 700; font-size: 12.5px; padding: 9px 20px; border-radius: 999px; box-shadow: 2.5px 2.5px 0 var(--rani); }
+  .heromock .img { aspect-ratio: 4/3; background: repeating-linear-gradient(45deg, #f0dcb8 0 12px, #e9d2a8 12px 24px); border-radius: 8px; border: 3px solid #fff; box-shadow: 4px 4px 0 rgba(179,24,109,0.4); position: relative; }
+  .heromock .img::after { content: 'photo + spinning stamp'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #8a5a2e; }
+  .heromock .note { font-size: 11px; color: #b3186d; font-weight: 600; margin-top: 10px; }
+
+  /* 4 search */
+  .searchmock { padding: 0 24px 30px; margin-top: -18px; }
+  .searchmock .pill { display: flex; background: #fff; border: 2px solid var(--marigold); border-radius: 999px; padding: 6px; max-width: 480px; box-shadow: 3px 3px 0 rgba(242,160,7,0.35); }
+  .searchmock .f { flex: 1; padding: 7px 14px; border-right: 2px dotted #f5d9a8; font-size: 11px; color: #8a5a2e; }
+  .searchmock .f b { display: block; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); }
+  .searchmock .go { background: var(--rani); color: #fff; border-radius: 999px; font-weight: 700; font-size: 12px; padding: 0 18px; display: flex; align-items: center; }
+
+  /* toran */
+  .toran { display: flex; justify-content: center; padding: 16px 0 0; }
+  .toran span { width: 22px; height: 11px; border-radius: 0 0 22px 22px; margin: 0 1px; }
+
+  /* 5 featured */
+  .featmock { padding: 6px 24px 30px; text-align: center; }
+  .featmock h3 { font-family: 'Yatra One', cursive; font-weight: 400; font-size: 24px; color: var(--flame); text-shadow: 1.5px 1.5px 0 #FFE3A1; margin-bottom: 16px; }
+  .featmock .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .featmock .pc { background: #fff; border: 2px solid var(--ink); border-radius: 8px; box-shadow: 3px 3px 0 rgba(58,36,21,0.85); padding-bottom: 8px; }
+  .featmock .pc .ph { aspect-ratio: 4/3; background: repeating-linear-gradient(45deg, #f0dcb8 0 10px, #e9d2a8 10px 20px); border-radius: 6px 6px 0 0; }
+  .featmock .pc .pr { font-family: 'Yatra One', cursive; font-size: 14px; color: var(--flame); padding: 6px 10px 0; text-align: left; }
+  .featmock .pc .nm { font-size: 10px; color: #8a5a2e; padding: 0 10px; text-align: left; }
+
+  /* 6 cities */
+  .citymock { padding: 6px 24px 30px; text-align: center; }
+  .citymock h3 { font-family: 'Yatra One', cursive; font-weight: 400; font-size: 24px; color: var(--rani); text-shadow: 1.5px 1.5px 0 #FFE3A1; margin-bottom: 14px; }
+  .citymock .chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .citymock .chip { color: #fff; font-weight: 700; font-size: 11.5px; padding: 8px 18px; border-radius: 999px; }
+  .citymock .note { font-size: 11px; color: var(--teal); font-weight: 600; margin-top: 10px; }
+
+  /* 7 story */
+  .storymock { background: linear-gradient(180deg, rgba(242,160,7,0.14), rgba(179,24,109,0.08)); padding: 26px 24px 30px; text-align: center; }
+  .storymock h3 { font-family: 'Yatra One', cursive; font-weight: 400; font-size: 20px; color: var(--ink); margin-bottom: 14px; }
+  .storymock .pts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .storymock .pt { background: #fff; border-radius: 10px; padding: 14px 10px; border: 2px dashed var(--marigold); }
+  .storymock .pt .ic { width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 8px; }
+  .storymock .pt b { display: block; font-size: 11.5px; color: var(--ink); }
+  .storymock .pt span { font-size: 10px; color: #8a5a2e; }
+
+  /* 8 footer */
+  .footmock { background: var(--ink); padding: 0; }
+  .footmock .toran span { background: var(--marigold); }
+  .footmock .in { padding: 18px 24px 24px; display: flex; justify-content: space-between; color: #d8c39a; font-size: 11px; }
+  .footmock .lg { font-family: 'Yatra One', cursive; font-size: 16px; color: var(--sun); }
+
+  .legend { max-width: 860px; margin: 22px auto 0; font-size: 13px; color: #b0a28d; line-height: 1.7; }
+  .legend b { color: #e8c66a; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h2>Home page structure — top to bottom</h2>
+  <p>A wireframe of the full Festive Craft homepage. Numbered blocks = sections. Items 1, 2 and 8 are shared across the whole site.</p>
+</div>
+
+<div class="phone">
+
+  <div class="blk">
+    <div class="bunting">
+      <span style="background:var(--flame)"></span><span style="background:var(--sun)"></span><span style="background:var(--rani)"></span><span style="background:var(--teal)"></span><span style="background:var(--flame)"></span><span style="background:var(--sun)"></span><span style="background:var(--rani)"></span><span style="background:var(--teal)"></span><span style="background:var(--flame)"></span><span style="background:var(--sun)"></span>
+    </div>
+  </div>
+
+  <div class="blk">
+    <span class="num">1</span><span class="label">Navbar · shared</span>
+    <div class="navmock">
+      <div class="logo">अपना घर</div>
+      <div class="links"><span>Buy</span><span>Rent</span><span>Cities</span><span class="cta">List Your Property</span></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <span class="num">2</span><span class="label">Hero · replaces slider</span>
+    <div class="heromock">
+      <div>
+        <h3>Ghar dhoondna,<br>ab tyohaar jaisa!</h3>
+        <div class="sub">Hinglish tagline + supporting line goes here.</div>
+        <span class="btn">Shuru Karein →</span>
+        <div class="note">← replaces the 5s auto-rotating HeroSlider with one strong image</div>
+      </div>
+      <div class="img"></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <span class="num">3</span><span class="label">Search pill · HeroSearch restyled</span>
+    <div class="searchmock">
+      <div class="pill">
+        <div class="f"><b>Looking to</b>Buy</div>
+        <div class="f"><b>City</b>Mumbai</div>
+        <div class="f"><b>Budget</b>₹50L–2Cr</div>
+        <div class="go">Khoj!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <span class="num">4</span><span class="label">Featured homes · existing data</span>
+    <div class="toran">
+      <span style="background:var(--marigold)"></span><span style="background:var(--flame)"></span><span style="background:var(--rani)"></span><span style="background:var(--teal)"></span><span style="background:var(--marigold)"></span><span style="background:var(--flame)"></span><span style="background:var(--rani)"></span>
+    </div>
+    <div class="featmock">
+      <h3>Featured Homes</h3>
+      <div class="row">
+        <div class="pc"><div class="ph"></div><div class="pr">₹3.5 Cr</div><div class="nm">Lakeview Villa</div></div>
+        <div class="pc"><div class="ph"></div><div class="pr">₹65,000/mo</div><div class="nm">Sea-Breeze Apt</div></div>
+        <div class="pc"><div class="ph"></div><div class="pr">₹1.8 Cr</div><div class="nm">Garden Home</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <span class="num">5</span><span class="label">Explore by city · NEW</span>
+    <div class="toran">
+      <span style="background:var(--teal)"></span><span style="background:var(--rani)"></span><span style="background:var(--flame)"></span><span style="background:var(--marigold)"></span><span style="background:var(--teal)"></span><span style="background:var(--rani)"></span><span style="background:var(--flame)"></span>
+    </div>
+    <div class="citymock">
+      <h3>Apne Sheher Mein Dhoondo</h3>
+      <div class="chips">
+        <span class="chip" style="background:var(--flame)">Mumbai</span>
+        <span class="chip" style="background:var(--rani)">Delhi NCR</span>
+        <span class="chip" style="background:var(--teal)">Bengaluru</span>
+        <span class="chip" style="background:var(--marigold)">Jaipur</span>
+        <span class="chip" style="background:var(--flame)">Pune</span>
+      </div>
+      <div class="note">chips link to /properties?city=... — this filter wiring already works today</div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <span class="num">6</span><span class="label">Brand story strip · NEW</span>
+    <div class="storymock">
+      <h3>Ghar jaisa bharosa</h3>
+      <div class="pts">
+        <div class="pt"><div class="ic" style="background:var(--teal)"></div><b>Verified listings</b><span>har ghar checked</span></div>
+        <div class="pt"><div class="ic" style="background:var(--flame)"></div><b>No brokerage drama</b><span>seedhi baat</span></div>
+        <div class="pt"><div class="ic" style="background:var(--rani)"></div><b>Har budget</b><span>₹10K rent se ₹10Cr tak</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blk" style="border-bottom:none">
+    <span class="num">7</span><span class="label">Footer · shared</span>
+    <div class="footmock">
+      <div class="toran">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="in">
+        <div class="lg">अपना घर</div>
+        <div>Buy · Rent · Cities · About · Contact</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="legend">
+  <b>What changes in code:</b> the bunting + Navbar + Footer live in the shared layout (whole site gets them). The hero <b>replaces</b> the auto-rotating HeroSlider. Search pill is the existing HeroSearch restyled. Featured Homes uses the existing data and the restyled PropertyCard — which the /properties and detail pages automatically inherit. Sections 5 &amp; 6 are new. <b>Scroll the wireframe, then come back to the terminal:</b> does this structure look right?
+</div>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApnaGhar — "Festive Craft" Blend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF9EF;
+    --marigold: #F2A007;
+    --flame: #E8540C;
+    --rani: #B3186D;
+    --teal: #0E8C8C;
+    --ink: #33261B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Work Sans', sans-serif; background: var(--cream); color: var(--ink); }
+  h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 600; }
+
+  /* slim festive bunting strip — the one loud Bazaar element, used with restraint */
+  .bunting { display: flex; height: 6px; }
+  .bunting span { flex: 1; }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px 90px; }
+
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+  .nav .logo { font-family: 'Yatra One', cursive; font-size: 22px; color: var(--flame); }
+  .nav .logo span { color: var(--rani); }
+  .nav .links { display: flex; gap: 28px; font-size: 13.5px; font-weight: 500; color: #6b5742; }
+  .nav .links .cta { color: var(--teal); border-bottom: 2px solid var(--marigold); padding-bottom: 2px; }
+
+  /* HERO — craft structure, festive color */
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; padding: 48px 0 64px; }
+  .tag {
+    display: inline-block; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 600; color: var(--rani); border: 1.5px solid var(--rani); padding: 5px 12px; border-radius: 999px;
+  }
+  .hero h1 { font-size: 52px; line-height: 1.08; margin: 20px 0 8px; color: var(--ink); }
+  .hero h1 .hindi { font-family: 'Yatra One', cursive; font-weight: 400; color: var(--flame); }
+  .hero h1 .pink { color: var(--rani); }
+  .hero p { font-size: 16.5px; line-height: 1.7; color: #7a6650; max-width: 440px; margin-bottom: 30px; }
+  .btn-row { display: flex; gap: 14px; align-items: center; }
+  .btn-primary {
+    font-family: 'Work Sans', sans-serif; font-weight: 600; font-size: 15px;
+    background: var(--flame); color: #fff; border: none; padding: 14px 30px; border-radius: 999px;
+    cursor: pointer; box-shadow: 0 6px 20px rgba(232,84,12,0.35); transition: all .25s;
+  }
+  .btn-primary:hover { background: var(--rani); box-shadow: 0 6px 20px rgba(179,24,109,0.35); }
+  .btn-text { font-weight: 600; font-size: 14.5px; color: var(--teal); border-bottom: 2px solid var(--marigold); padding-bottom: 2px; cursor: pointer; }
+
+  /* hero image block — clean offset frame from Craft, festive colors */
+  .imgblock { position: relative; }
+  .imgblock img { width: 100%; aspect-ratio: 4/3.3; object-fit: cover; display: block; border-radius: 4px; }
+  .imgblock::before { content: ''; position: absolute; inset: 14px -14px -14px 14px; border: 2px solid var(--marigold); border-radius: 4px; }
+  .imgblock .stamp {
+    position: absolute; top: -22px; right: -18px; width: 88px; height: 88px; border-radius: 50%;
+    background: repeating-conic-gradient(var(--flame) 0 18deg, var(--marigold) 18deg 36deg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .imgblock .stamp::after {
+    content: 'अपना घर'; font-family: 'Yatra One', cursive; font-size: 13px; color: var(--flame);
+    background: var(--cream); width: 62px; height: 62px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* search pill */
+  .search {
+    display: flex; background: #fff; border: 1.5px solid #eadbc2; border-radius: 999px;
+    padding: 8px; max-width: 660px; margin: -26px 0 0; box-shadow: 0 14px 40px rgba(51,38,27,0.08);
+  }
+  .search .field { flex: 1; padding: 10px 22px; border-right: 1px solid #f0e4cd; }
+  .search .field:last-of-type { border-right: none; }
+  .search .field label { display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); font-weight: 600; }
+  .search .field div { font-size: 14.5px; color: #8d7a63; margin-top: 3px; }
+  .search button {
+    background: var(--teal); color: #fff; border: none; border-radius: 999px;
+    font-weight: 600; font-size: 14px; padding: 0 30px; cursor: pointer;
+  }
+
+  /* section heading w/ rangoli dot motif */
+  .sec-head { display: flex; align-items: baseline; gap: 16px; margin: 72px 0 30px; }
+  .sec-head h2 { font-size: 30px; }
+  .sec-head .dots { display: flex; gap: 6px; }
+  .sec-head .dots i { width: 8px; height: 8px; border-radius: 50%; }
+  .sec-head .line { flex: 1; height: 1.5px; background: linear-gradient(90deg, #eadbc2, transparent); }
+
+  /* property cards */
+  .cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .pcard { background: #fff; border-radius: 6px; overflow: hidden; border: 1.5px solid #f0e4cd; transition: all .3s; }
+  .pcard:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(51,38,27,0.12); border-color: var(--marigold); }
+  .pcard .img-wrap { position: relative; }
+  .pcard img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+  .badge {
+    position: absolute; top: 12px; left: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 5px 13px; color: #fff; border-radius: 999px;
+  }
+  .badge.buy { background: var(--rani); }
+  .badge.rent { background: var(--teal); }
+  .pcard .body { padding: 18px 20px 20px; }
+  .pcard .price { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; color: var(--flame); }
+  .pcard .price small { font-family: 'Work Sans', sans-serif; font-weight: 400; font-size: 13px; color: #8d7a63; }
+  .pcard .name { font-size: 15px; font-weight: 600; margin-top: 5px; }
+  .pcard .loc { font-size: 13px; color: #8d7a63; margin-top: 2px; }
+  .pcard .specs { display: flex; gap: 14px; margin-top: 14px; padding-top: 12px; border-top: 1.5px dotted #eadbc2; font-size: 12.5px; color: #7a6650; }
+
+  /* city chips row */
+  .city-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .city-chip {
+    font-weight: 600; font-size: 14px; padding: 11px 24px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid transparent; transition: all .2s;
+  }
+  .city-chip:hover { transform: translateY(-2px); }
+
+  .palette-note { margin-top: 70px; text-align: center; font-size: 13.5px; color: #8d7a63; font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="bunting">
+  <span style="background:var(--flame)"></span><span style="background:var(--marigold)"></span>
+  <span style="background:var(--rani)"></span><span style="background:var(--teal)"></span>
+  <span style="background:var(--flame)"></span><span style="background:var(--marigold)"></span>
+  <span style="background:var(--rani)"></span><span style="background:var(--teal)"></span>
+</div>
+
+<div class="wrap">
+  <nav class="nav">
+    <div class="logo">अपना <span>घर</span></div>
+    <div class="links"><span>Buy</span><span>Rent</span><span>Cities</span><span class="cta">List Your Property</span></div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="tag">Homes across India</span>
+      <h1><span class="hindi">Ghar</span> hunting,<br>made <span class="pink">joyful</span>.</h1>
+      <p>From sea-facing flats in Mumbai to garden homes in Jaipur — a cleaner, brighter way to find where you belong.</p>
+      <div class="btn-row">
+        <button class="btn-primary">Explore Properties</button>
+        <span class="btn-text">How it works →</span>
+      </div>
+    </div>
+    <div class="imgblock">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="">
+      <div class="stamp"></div>
+    </div>
+  </section>
+
+  <div class="search">
+    <div class="field"><label>Looking to</label><div>Buy</div></div>
+    <div class="field"><label>City</label><div>Mumbai</div></div>
+    <div class="field"><label>Budget</label><div>₹50L – ₹2Cr</div></div>
+    <button>Search</button>
+  </div>
+
+  <div class="sec-head">
+    <h2>Featured Homes</h2>
+    <div class="dots">
+      <i style="background:var(--flame)"></i><i style="background:var(--marigold)"></i><i style="background:var(--rani)"></i><i style="background:var(--teal)"></i>
+    </div>
+    <div class="line"></div>
+  </div>
+
+  <div class="cards-row">
+    <div class="pcard">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="">
+        <span class="badge buy">For Sale</span>
+      </div>
+      <div class="body">
+        <div class="price">₹3.5 Cr</div>
+        <div class="name">Lakeview Villa</div>
+        <div class="loc">Whitefield, Bengaluru</div>
+        <div class="specs"><span>4 Beds</span><span>3 Baths</span><span>3,200 sq.ft</span></div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80" alt="">
+        <span class="badge rent">For Rent</span>
+      </div>
+      <div class="body">
+        <div class="price">₹65,000 <small>/month</small></div>
+        <div class="name">Sea-Breeze Apartment</div>
+        <div class="loc">Bandra West, Mumbai</div>
+        <div class="specs"><span>3 Beds</span><span>2 Baths</span><span>1,450 sq.ft</span></div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="">
+        <span class="badge buy">For Sale</span>
+      </div>
+      <div class="body">
+        <div class="price">₹1.8 Cr</div>
+        <div class="name">Garden Courtyard Home</div>
+        <div class="loc">Civil Lines, Jaipur</div>
+        <div class="specs"><span>3 Beds</span><span>3 Baths</span><span>2,100 sq.ft</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <h2>Explore by City</h2>
+    <div class="dots">
+      <i style="background:var(--teal)"></i><i style="background:var(--rani)"></i><i style="background:var(--marigold)"></i><i style="background:var(--flame)"></i>
+    </div>
+    <div class="line"></div>
+  </div>
+  <div class="city-row">
+    <span class="city-chip" style="background:#FDEBD2; color:var(--flame)">Mumbai</span>
+    <span class="city-chip" style="background:#F9DCEC; color:var(--rani)">Delhi NCR</span>
+    <span class="city-chip" style="background:#D9F0EE; color:var(--teal)">Bengaluru</span>
+    <span class="city-chip" style="background:#FDF3CF; color:#A87B05">Jaipur</span>
+    <span class="city-chip" style="background:#FDEBD2; color:var(--flame)">Pune</span>
+    <span class="city-chip" style="background:#F9DCEC; color:var(--rani)">Hyderabad</span>
+  </div>
+
+  <p class="palette-note">Festive Craft — Bazaar's marigold, rani pink &amp; teal, carried on Modern Craft's clean grid, generous whitespace, and quiet typography. Yatra One appears only as a flourish (logo, one hero word); Fraunces &amp; Work Sans do the everyday work.</p>
+</div>
+</body>
+</html>

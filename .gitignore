@@ -1,0 +1,12 @@
+# dependencies / build output
+node_modules/
+.next/
+out/
+
+# brainstorm session state (mockups in content/ are kept)
+.superpowers/brainstorm/*/state/
+
+# local-only files
+bash.exe.stackdump
+*.stackdump
+.claude/settings.local.json

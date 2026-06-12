@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApnaGhar — "Full Mela" v3 (maximum festive)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&family=Yatra+One&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF3DC;
+    --marigold: #F2A007;
+    --sun: #FFD34E;
+    --flame: #E8540C;
+    --rani: #B3186D;
+    --teal: #0E8C8C;
+    --ink: #3A2415;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Baloo 2', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+  h1, h2 { font-family: 'Yatra One', cursive; font-weight: 400; }
+
+  /* swaying bunting */
+  .bunting { display: flex; filter: drop-shadow(0 3px 4px rgba(58,36,21,0.25)); transform-origin: top center; animation: sway 5s ease-in-out infinite; }
+  @keyframes sway { 0%,100% { transform: rotate(-0.4deg); } 50% { transform: rotate(0.4deg); } }
+  .bunting span { flex: 1; height: 32px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+
+  /* painted marquee ticker */
+  .ticker { background: var(--ink); color: var(--sun); overflow: hidden; white-space: nowrap; padding: 8px 0; font-weight: 700; font-size: 13.5px; letter-spacing: 0.12em; }
+  .ticker .reel { display: inline-block; animation: reel 22s linear infinite; }
+  @keyframes reel { to { transform: translateX(-50%); } }
+  .ticker b { color: #ff9ecb; }
+  .ticker i { color: var(--marigold); font-style: normal; margin: 0 14px; }
+
+  /* HERO — full saturated marigold block with mandala */
+  .hero-block {
+    background: linear-gradient(160deg, var(--marigold) 0%, var(--flame) 90%);
+    position: relative; overflow: hidden;
+    border-bottom: 10px solid var(--rani);
+  }
+  .mandala {
+    position: absolute; width: 720px; height: 720px; right: -200px; top: -160px; border-radius: 50%;
+    background:
+      repeating-conic-gradient(rgba(255,255,255,0.16) 0 6deg, transparent 6deg 18deg),
+      radial-gradient(circle, transparent 30%, rgba(179,24,109,0.25) 31% 33%, transparent 34% 55%, rgba(255,255,255,0.18) 56% 58%, transparent 59%);
+    animation: spin 60s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; position: relative; }
+
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; position: relative; z-index: 2; }
+  .nav .logo { font-family: 'Yatra One', cursive; font-size: 30px; color: #fff; text-shadow: 2.5px 2.5px 0 var(--rani); }
+  .nav .links { display: flex; gap: 24px; font-weight: 700; font-size: 15px; color: #FFF3DC; align-items: center; }
+  .nav .links .cta { color: var(--flame); background: #fff; padding: 10px 22px; border-radius: 999px; box-shadow: 3px 3px 0 var(--rani); }
+
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; padding: 40px 0 84px; position: relative; z-index: 2; }
+  .tag {
+    display: inline-block; font-weight: 800; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--rani); background: var(--sun); padding: 7px 18px; border-radius: 999px;
+    transform: rotate(-2.5deg); box-shadow: 3px 3px 0 var(--rani); animation: bob 3s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: rotate(-2.5deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-5px); } }
+  .hero h1 { font-size: 64px; line-height: 1.08; margin: 22px 0 12px; color: #fff; text-shadow: 3.5px 3.5px 0 var(--rani), 7px 7px 0 rgba(58,36,21,0.18); }
+  .hero h1 .y { color: var(--sun); }
+  .hero p { font-size: 18px; line-height: 1.6; color: #FFEFC9; max-width: 430px; margin-bottom: 30px; font-weight: 600; }
+  .btn-row { display: flex; gap: 18px; align-items: center; }
+  .btn-primary {
+    font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 17px;
+    background: var(--rani); color: #fff; border: 3px solid #fff; padding: 14px 34px; border-radius: 999px;
+    cursor: pointer; box-shadow: 5px 5px 0 rgba(58,36,21,0.5); transition: all .15s;
+  }
+  .btn-primary:hover { transform: translate(2px,2px) scale(1.02); box-shadow: 2px 2px 0 rgba(58,36,21,0.5); }
+  .btn-text { font-weight: 800; font-size: 16px; color: #fff; border-bottom: 3px dotted var(--sun); cursor: pointer; }
+
+  .imgblock { position: relative; z-index: 2; }
+  .imgblock img {
+    width: 100%; aspect-ratio: 4/3.2; object-fit: cover; display: block;
+    border-radius: 14px; border: 6px solid #fff; box-shadow: 8px 8px 0 var(--rani), 16px 16px 32px rgba(58,36,21,0.3);
+    transform: rotate(1.2deg);
+  }
+  .imgblock .stamp {
+    position: absolute; top: -32px; right: -22px; width: 118px; height: 118px; border-radius: 50%;
+    background: repeating-conic-gradient(var(--rani) 0 15deg, var(--sun) 15deg 30deg, var(--teal) 30deg 45deg, #fff 45deg 60deg);
+    display: flex; align-items: center; justify-content: center; animation: spin 24s linear infinite;
+    box-shadow: 0 8px 22px rgba(58,36,21,0.35); border: 3px solid #fff;
+  }
+  .imgblock .stamp::after {
+    content: 'अपना घर'; font-family: 'Yatra One', cursive; font-size: 16px; color: var(--flame);
+    background: var(--cream); width: 80px; height: 80px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; animation: spin 24s linear infinite reverse;
+  }
+  /* floating diyas */
+  .diya { position: absolute; font-size: 30px; animation: floaty 6s ease-in-out infinite; z-index: 1; }
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-16px) rotate(4deg); } }
+
+  /* scalloped edge transition */
+  .scallop { height: 28px; background: radial-gradient(circle at 50% 0, var(--flame) 14px, transparent 15px); background-size: 42px 28px; background-position: 0 0; margin-top: -1px; transform: rotate(180deg); }
+
+  /* search — painted sign board */
+  .searchbar { margin: -36px auto 0; max-width: 760px; position: relative; z-index: 5; padding: 0 32px; }
+  .search {
+    display: flex; background: #fff; border: 3px solid var(--ink); border-radius: 18px;
+    padding: 10px; box-shadow: 7px 7px 0 var(--teal);
+  }
+  .search .field { flex: 1; padding: 10px 22px; border-right: 3px dotted var(--sun); }
+  .search .field:last-of-type { border-right: none; }
+  .search .field label { display: block; font-weight: 800; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rani); }
+  .search .field div { font-size: 15.5px; font-weight: 600; color: #8a5a2e; margin-top: 2px; }
+  .search button {
+    background: var(--flame); color: #fff; border: none; border-radius: 12px;
+    font-family: 'Yatra One', cursive; font-size: 17px; padding: 0 34px; cursor: pointer;
+    box-shadow: inset 0 -4px 0 rgba(58,36,21,0.3);
+  }
+
+  /* truck-art striped section frame */
+  .truck-frame {
+    max-width: 1100px; margin: 70px auto 0; padding: 4px;
+    background: repeating-linear-gradient(45deg, var(--flame) 0 14px, var(--sun) 14px 28px, var(--teal) 28px 42px, var(--rani) 42px 56px);
+    border-radius: 22px;
+  }
+  .truck-inner { background: var(--cream); border-radius: 18px; padding: 38px 34px 44px; }
+
+  .sec-head { text-align: center; margin-bottom: 34px; }
+  .sec-head h2 { font-size: 40px; color: var(--rani); text-shadow: 2.5px 2.5px 0 var(--sun); }
+  .sec-head .under { font-weight: 700; font-size: 15px; color: var(--teal); margin-top: 4px; }
+  .sec-head .garland { display: flex; justify-content: center; gap: 3px; margin-top: 12px; }
+  .sec-head .garland i { width: 12px; height: 12px; border-radius: 50%; animation: bob 2.5s ease-in-out infinite; }
+  .sec-head .garland i:nth-child(2n) { animation-delay: .3s; }
+  .sec-head .garland i:nth-child(3n) { animation-delay: .6s; }
+
+  .cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
+  .pcard { background: #fff; border-radius: 16px; overflow: hidden; border: 3px solid var(--ink); transition: all .2s; position: relative; }
+  .pcard:nth-child(1) { box-shadow: 6px 6px 0 var(--flame); transform: rotate(-1deg); }
+  .pcard:nth-child(2) { box-shadow: 6px 6px 0 var(--teal); transform: rotate(0.8deg); }
+  .pcard:nth-child(3) { box-shadow: 6px 6px 0 var(--rani); transform: rotate(-0.6deg); }
+  .pcard:hover { transform: rotate(0) translateY(-6px) scale(1.02); }
+  .pcard img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+  .badge {
+    position: absolute; top: 14px; left: -8px; font-weight: 800; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 7px 18px 7px 20px; color: #fff;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+  }
+  .badge.buy { background: var(--rani); }
+  .badge.rent { background: var(--teal); }
+  .pcard .body { padding: 16px 20px 20px; }
+  .pcard .price { font-family: 'Yatra One', cursive; font-size: 26px; color: var(--flame); }
+  .pcard .price small { font-family: 'Baloo 2', sans-serif; font-size: 13px; color: #a07d52; }
+  .pcard .name { font-weight: 700; font-size: 16px; margin-top: 4px; }
+  .pcard .loc { font-size: 13.5px; font-weight: 500; color: #a07d52; }
+  .pcard .specs { display: flex; gap: 14px; margin-top: 13px; padding-top: 12px; border-top: 3px dotted var(--sun); font-weight: 600; font-size: 13px; color: #8a5a2e; }
+
+  /* city section — full pink block */
+  .city-block { background: var(--rani); margin-top: 70px; padding: 54px 0 64px; border-top: 10px solid var(--marigold); border-bottom: 10px solid var(--teal); position: relative; overflow: hidden; }
+  .city-block .mandala2 {
+    position: absolute; width: 500px; height: 500px; left: -180px; bottom: -200px; border-radius: 50%;
+    background: repeating-conic-gradient(rgba(255,255,255,0.1) 0 8deg, transparent 8deg 22deg);
+    animation: spin 80s linear infinite reverse;
+  }
+  .city-block h2 { text-align: center; font-size: 38px; color: #fff; text-shadow: 2.5px 2.5px 0 var(--ink); margin-bottom: 30px; position: relative; }
+  .city-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; position: relative; }
+  .city-chip {
+    font-weight: 800; font-size: 16px; padding: 13px 30px; border-radius: 999px; cursor: pointer;
+    border: 3px solid #fff; color: #fff; transition: all .15s;
+  }
+  .city-chip:hover { transform: translateY(-4px) rotate(-2deg) scale(1.05); }
+
+  .palette-note { max-width: 1100px; margin: 56px auto 80px; text-align: center; font-size: 14px; color: #a07d52; font-style: italic; padding: 0 32px; }
+</style>
+</head>
+<body>
+
+<div class="bunting">
+  <span style="background:var(--flame)"></span><span style="background:var(--sun)"></span>
+  <span style="background:var(--rani)"></span><span style="background:var(--teal)"></span>
+  <span style="background:var(--flame)"></span><span style="background:var(--sun)"></span>
+  <span style="background:var(--rani)"></span><span style="background:var(--teal)"></span>
+  <span style="background:var(--flame)"></span><span style="background:var(--sun)"></span>
+  <span style="background:var(--rani)"></span><span style="background:var(--teal)"></span>
+</div>
+
+<div class="ticker">
+  <div class="reel">
+    <i>★</i>Mumbai<i>★</i><b>Delhi NCR</b><i>★</i>Bengaluru<i>★</i><b>Jaipur</b><i>★</i>Pune<i>★</i><b>Hyderabad</b><i>★</i>Chennai<i>★</i><b>Kolkata</b><i>★</i>Mumbai<i>★</i><b>Delhi NCR</b><i>★</i>Bengaluru<i>★</i><b>Jaipur</b><i>★</i>Pune<i>★</i><b>Hyderabad</b><i>★</i>Chennai<i>★</i><b>Kolkata</b>
+  </div>
+</div>
+
+<div class="hero-block">
+  <div class="mandala"></div>
+  <span class="diya" style="left:6%; top:30%">🪔</span>
+  <span class="diya" style="left:42%; top:12%; animation-delay:1.5s">🪔</span>
+  <span class="diya" style="left:55%; bottom:14%; animation-delay:3s">✨</span>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="logo">अपना घर</div>
+      <div class="links"><span>Buy</span><span>Rent</span><span>Cities</span><span class="cta">List Your Property</span></div>
+    </nav>
+    <section class="hero">
+      <div>
+        <span class="tag">Sapno ka ghar, yahin milega!</span>
+        <h1>Ghar dhoondna,<br>ab <span class="y">tyohaar</span> jaisa!</h1>
+        <p>Mumbai ki sea-breeze se Jaipur ke aangan tak — house hunting that feels like Diwali shopping!</p>
+        <div class="btn-row">
+          <button class="btn-primary">Shuru Karein →</button>
+          <span class="btn-text">How it works</span>
+        </div>
+      </div>
+      <div class="imgblock">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="">
+        <div class="stamp"></div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="scallop"></div>
+
+<div class="searchbar">
+  <div class="search">
+    <div class="field"><label>Looking to</label><div>Buy</div></div>
+    <div class="field"><label>City</label><div>Mumbai</div></div>
+    <div class="field"><label>Budget</label><div>₹50L – ₹2Cr</div></div>
+    <button>Khoj!</button>
+  </div>
+</div>
+
+<div class="truck-frame">
+  <div class="truck-inner">
+    <div class="sec-head">
+      <h2>Featured Homes</h2>
+      <div class="under">Haath se chune hue — handpicked for you</div>
+      <div class="garland">
+        <i style="background:var(--flame)"></i><i style="background:var(--sun)"></i><i style="background:var(--rani)"></i><i style="background:var(--teal)"></i><i style="background:var(--flame)"></i><i style="background:var(--sun)"></i><i style="background:var(--rani)"></i>
+      </div>
+    </div>
+    <div class="cards-row">
+      <div class="pcard">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="">
+        <span class="badge buy">For Sale</span>
+        <div class="body">
+          <div class="price">₹3.5 Cr</div>
+          <div class="name">Lakeview Villa</div>
+          <div class="loc">Whitefield, Bengaluru</div>
+          <div class="specs"><span>4 Beds</span><span>3 Baths</span><span>3,200 sq.ft</span></div>
+        </div>
+      </div>
+      <div class="pcard">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80" alt="">
+        <span class="badge rent">For Rent</span>
+        <div class="body">
+          <div class="price">₹65,000 <small>/month</small></div>
+          <div class="name">Sea-Breeze Apartment</div>
+          <div class="loc">Bandra West, Mumbai</div>
+          <div class="specs"><span>3 Beds</span><span>2 Baths</span><span>1,450 sq.ft</span></div>
+        </div>
+      </div>
+      <div class="pcard">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="">
+        <span class="badge buy">For Sale</span>
+        <div class="body">
+          <div class="price">₹1.8 Cr</div>
+          <div class="name">Garden Courtyard Home</div>
+          <div class="loc">Civil Lines, Jaipur</div>
+          <div class="specs"><span>3 Beds</span><span>3 Baths</span><span>2,100 sq.ft</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="city-block">
+  <div class="mandala2"></div>
+  <h2>Apne Sheher Mein Dhoondo</h2>
+  <div class="city-row">
+    <span class="city-chip" style="background:var(--flame)">Mumbai</span>
+    <span class="city-chip" style="background:var(--teal)">Delhi NCR</span>
+    <span class="city-chip" style="background:var(--marigold); color:var(--ink)">Bengaluru</span>
+    <span class="city-chip" style="background:#7a1049">Jaipur</span>
+    <span class="city-chip" style="background:var(--teal)">Pune</span>
+    <span class="city-chip" style="background:var(--flame)">Hyderabad</span>
+  </div>
+</div>
+
+<p class="palette-note">Full Mela v3 — saturated marigold hero block with spinning mandala, scrolling city ticker, swaying bunting, floating diyas, truck-art striped frames, tilted sticker cards, scalloped edges, and a full rani-pink city section. Maximum festival.</p>
+
+</body>
+</html>
