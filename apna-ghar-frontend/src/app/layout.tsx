@@ -12,7 +12,7 @@ const yatraOne = Yatra_One({
 });
 
 const baloo2 = Baloo_2({
-  subsets: ["latin"],
+  subsets: ["latin", "devanagari"],
   variable: "--font-ui",
 });
 
