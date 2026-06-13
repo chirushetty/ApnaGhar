@@ -20,17 +20,17 @@ export default function HeroSearch() {
   }
 
   return (
-    <div className="w-full max-w-3xl rounded-2xl bg-white p-2 shadow-2xl">
+    <div className="w-full max-w-3xl rounded-3xl border-2 border-marigold bg-white p-2 shadow-offset-marigold">
       <div className="flex gap-1 p-2">
         {(["buy", "rent"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={
-              "rounded-lg px-5 py-2 text-sm font-semibold capitalize transition " +
+              "rounded-full px-5 py-2 font-ui text-sm font-bold capitalize transition " +
               (tab === t
-                ? "bg-brand-600 text-white"
-                : "text-slate-600 hover:bg-slate-100")
+                ? "bg-rani text-white"
+                : "text-spice hover:bg-sun/30")
             }
           >
             {t}
@@ -39,21 +39,21 @@ export default function HeroSearch() {
       </div>
 
       <div className="flex flex-col gap-2 p-2 sm:flex-row">
-        <div className="flex flex-1 items-center gap-2 rounded-lg border border-slate-200 px-3">
-          <MapPin className="h-5 w-5 shrink-0 text-slate-400" />
+        <div className="flex flex-1 items-center gap-2 rounded-full border-2 border-dotted border-sun px-4">
+          <MapPin className="h-5 w-5 shrink-0 text-marigold" />
           <input
             value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             placeholder="Enter city or locality"
-            className="w-full bg-transparent py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400"
+            className="w-full bg-transparent py-3 font-ui text-sm text-ink outline-none placeholder:text-spice/60"
           />
         </div>
 
         <select
           value={propertyType}
           onChange={(e) => setPropertyType(e.target.value)}
-          className="rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm text-slate-700 outline-none sm:w-44"
+          className="rounded-full border-2 border-dotted border-sun bg-white px-4 py-3 font-ui text-sm text-spice outline-none sm:w-44"
         >
           <option value="">All Types</option>
           {PROPERTY_TYPES.map((pt) => (
@@ -65,10 +65,10 @@ export default function HeroSearch() {
 
         <button
           onClick={handleSearch}
-          className="flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-700"
+          className="flex items-center justify-center gap-2 rounded-full bg-flame px-7 py-3 font-ui text-sm font-bold text-white transition hover:bg-rani"
         >
           <Search className="h-4 w-4" />
-          Search
+          Khoj!
         </button>
       </div>
     </div>
