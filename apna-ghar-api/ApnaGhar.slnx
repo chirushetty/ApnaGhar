@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ApnaGhar.Api/ApnaGhar.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ApnaGhar.Api.Tests/ApnaGhar.Api.Tests.csproj" />
+  </Folder>
+</Solution>

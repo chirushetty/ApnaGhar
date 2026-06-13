@@ -1,0 +1,6 @@
+@ApnaGhar.Api_HostAddress = http://localhost:5105
+
+GET {{ApnaGhar.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
