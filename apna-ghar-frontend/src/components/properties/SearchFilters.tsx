@@ -42,8 +42,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="border-b border-slate-100 py-4">
-      <h3 className="mb-3 text-sm font-semibold text-slate-900">{title}</h3>
+    <div className="border-b border-sun/40 py-4">
+      <h3 className="mb-3 font-ui text-sm font-bold text-ink">{title}</h3>
       {children}
     </div>
   );
@@ -75,12 +75,12 @@ export default function SearchFilters({
   };
 
   return (
-    <aside className="rounded-xl border border-slate-200 bg-white p-5 shadow-card">
+    <aside className="rounded-xl border-2 border-ink bg-white p-5 shadow-sticker">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-bold text-slate-900">Filters</h2>
+        <h2 className="font-ui text-base font-bold text-ink">Filters</h2>
         <button
           onClick={() => setFilters(defaultFilters)}
-          className="flex items-center gap-1 text-xs font-medium text-brand-600 hover:text-brand-700"
+          className="flex items-center gap-1 font-ui text-xs font-bold text-flame hover:text-flame-dark"
         >
           <RotateCcw className="h-3 w-3" /> Reset
         </button>
@@ -93,10 +93,10 @@ export default function SearchFilters({
               key={t}
               onClick={() => setFilters({ ...filters, listingType: t })}
               className={
-                "flex-1 rounded-md border px-2 py-1.5 text-xs font-semibold capitalize transition " +
+                "flex-1 rounded-md border px-2 py-1.5 font-ui text-xs font-bold capitalize transition " +
                 (filters.listingType === t
-                  ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-slate-200 text-slate-600 hover:border-slate-300")
+                  ? "border-flame bg-flame/10 text-flame"
+                  : "border-marigold/40 text-spice hover:border-marigold")
               }
             >
               {t}
@@ -109,7 +109,7 @@ export default function SearchFilters({
         <select
           value={filters.city}
           onChange={(e) => setFilters({ ...filters, city: e.target.value })}
-          className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-700 outline-none focus:border-brand-500"
+          className="w-full rounded-md border border-marigold/40 px-3 py-2 font-ui text-sm text-spice outline-none focus:border-flame"
         >
           <option value="">All Cities</option>
           {POPULAR_CITIES.map((c) => (
@@ -125,13 +125,13 @@ export default function SearchFilters({
           {PROPERTY_TYPES.map((t) => (
             <label
               key={t}
-              className="flex cursor-pointer items-center gap-2 text-sm text-slate-600"
+              className="flex cursor-pointer items-center gap-2 font-ui text-sm text-spice"
             >
               <input
                 type="checkbox"
                 checked={filters.propertyTypes.includes(t)}
                 onChange={() => toggleType(t)}
-                className="h-4 w-4 rounded border-slate-300 text-brand-600 accent-brand-600"
+                className="h-4 w-4 rounded border-marigold/50 text-flame accent-flame"
               />
               {t}
             </label>
@@ -148,9 +148,9 @@ export default function SearchFilters({
               setFilters({ ...filters, minPrice: e.target.value })
             }
             placeholder="Min"
-            className="w-full rounded-md border border-slate-200 px-2 py-2 text-sm outline-none focus:border-brand-500"
+            className="w-full rounded-md border border-marigold/40 px-2 py-2 text-sm outline-none focus:border-flame"
           />
-          <span className="text-slate-400">—</span>
+          <span className="text-spice/60">—</span>
           <input
             type="number"
             value={filters.maxPrice}
@@ -158,7 +158,7 @@ export default function SearchFilters({
               setFilters({ ...filters, maxPrice: e.target.value })
             }
             placeholder="Max"
-            className="w-full rounded-md border border-slate-200 px-2 py-2 text-sm outline-none focus:border-brand-500"
+            className="w-full rounded-md border border-marigold/40 px-2 py-2 text-sm outline-none focus:border-flame"
           />
         </div>
       </Section>
@@ -170,10 +170,10 @@ export default function SearchFilters({
               key={b}
               onClick={() => setFilters({ ...filters, bedrooms: b })}
               className={
-                "flex-1 rounded-md border px-1 py-1.5 text-xs font-semibold transition " +
+                "flex-1 rounded-md border px-1 py-1.5 font-ui text-xs font-bold transition " +
                 (filters.bedrooms === b
-                  ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-slate-200 text-slate-600 hover:border-slate-300")
+                  ? "border-flame bg-flame/10 text-flame"
+                  : "border-marigold/40 text-spice hover:border-marigold")
               }
             >
               {b === 0 ? "Any" : `${b}+`}
@@ -187,13 +187,13 @@ export default function SearchFilters({
           {ALL_AMENITIES.slice(0, 6).map((a) => (
             <label
               key={a}
-              className="flex cursor-pointer items-center gap-2 text-sm text-slate-600"
+              className="flex cursor-pointer items-center gap-2 font-ui text-sm text-spice"
             >
               <input
                 type="checkbox"
                 checked={filters.amenities.includes(a)}
                 onChange={() => toggleAmenity(a)}
-                className="h-4 w-4 rounded border-slate-300 accent-brand-600"
+                className="h-4 w-4 rounded border-marigold/50 accent-flame"
               />
               {a}
             </label>
@@ -202,14 +202,14 @@ export default function SearchFilters({
       </Section>
 
       <div className="pt-4">
-        <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-700">
+        <label className="flex cursor-pointer items-center gap-2 font-ui text-sm font-medium text-spice">
           <input
             type="checkbox"
             checked={filters.furnishedOnly}
             onChange={(e) =>
               setFilters({ ...filters, furnishedOnly: e.target.checked })
             }
-            className="h-4 w-4 rounded border-slate-300 accent-brand-600"
+            className="h-4 w-4 rounded border-marigold/50 accent-flame"
           />
           Furnished only
         </label>

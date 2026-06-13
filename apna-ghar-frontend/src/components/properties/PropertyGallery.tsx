@@ -28,7 +28,7 @@ export default function PropertyGallery({
     <div>
       {/* Main slide */}
       <div
-        className="group relative h-72 overflow-hidden rounded-2xl bg-slate-200 sm:h-[440px]"
+        className="group relative h-72 overflow-hidden rounded-2xl bg-sun/30 sm:h-[440px]"
         onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
         onTouchEnd={(e) => {
           if (touchStartX === null) return;
@@ -56,15 +56,15 @@ export default function PropertyGallery({
         {/* Badges */}
         <span
           className={
-            "absolute left-4 top-4 rounded-md px-3 py-1 text-sm font-semibold text-white shadow " +
-            (isRent ? "bg-accent-600" : "bg-brand-600")
+            "absolute left-4 top-4 rounded-md px-3 py-1 font-ui text-sm font-bold text-white shadow " +
+            (isRent ? "bg-teal" : "bg-rani")
           }
         >
           {isRent ? "For Rent" : "For Sale"}
         </span>
         {vastuCompliant && (
-          <span className="absolute right-4 top-4 flex items-center gap-1 rounded-md bg-white/95 px-2.5 py-1 text-xs font-semibold text-accent-700 shadow">
-            <Flame className="h-3.5 w-3.5 text-brand-500" />
+          <span className="absolute right-4 top-4 flex items-center gap-1 rounded-md bg-white/95 px-2.5 py-1 font-ui text-xs font-bold text-teal shadow">
+            <Flame className="h-3.5 w-3.5 text-flame" />
             Vāstu Compliant
           </span>
         )}
@@ -75,14 +75,14 @@ export default function PropertyGallery({
             <button
               onClick={() => go(-1)}
               aria-label="Previous photo"
-              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-slate-700 shadow-md transition hover:scale-105 hover:bg-white"
+              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-spice shadow-md transition hover:scale-105 hover:bg-white"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={() => go(1)}
               aria-label="Next photo"
-              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-slate-700 shadow-md transition hover:scale-105 hover:bg-white"
+              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-spice shadow-md transition hover:scale-105 hover:bg-white"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -90,7 +90,7 @@ export default function PropertyGallery({
         )}
 
         {/* Counter */}
-        <span className="absolute bottom-4 right-4 rounded-full bg-slate-900/70 px-2.5 py-1 text-xs font-medium text-white">
+        <span className="absolute bottom-4 right-4 rounded-full bg-ink/70 px-2.5 py-1 text-xs font-medium text-white">
           {current + 1} / {count}
         </span>
 
@@ -122,7 +122,7 @@ export default function PropertyGallery({
               className={
                 "relative h-16 w-24 shrink-0 overflow-hidden rounded-lg transition " +
                 (i === current
-                  ? "ring-2 ring-brand-500 ring-offset-2"
+                  ? "ring-2 ring-flame ring-offset-2"
                   : "opacity-70 hover:opacity-100")
               }
             >

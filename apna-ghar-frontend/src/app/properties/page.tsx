@@ -70,15 +70,15 @@ function PropertiesContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:text-brand-600">
+      <nav className="font-ui text-sm text-spice/70">
+        <Link href="/" className="hover:text-flame">
           Home
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-slate-700">Properties</span>
+        <span className="text-spice">Properties</span>
       </nav>
 
-      <h1 className="mt-2 text-2xl font-bold text-slate-900">
+      <h1 className="mt-2 font-display text-3xl text-rani text-painted">
         Properties for{" "}
         {filters.listingType === "all"
           ? "Sale & Rent"
@@ -94,20 +94,20 @@ function PropertiesContent() {
         </div>
 
         <div>
-          <div className="mb-4 flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
-            <p className="flex items-center gap-2 text-sm text-slate-600">
-              <SlidersHorizontal className="h-4 w-4 text-slate-400" />
-              <span className="font-semibold text-slate-900">
+          <div className="mb-4 flex items-center justify-between rounded-lg border-2 border-ink bg-white px-4 py-3 shadow-sticker">
+            <p className="flex items-center gap-2 font-ui text-sm text-spice">
+              <SlidersHorizontal className="h-4 w-4 text-marigold" />
+              <span className="font-bold text-ink">
                 {results.length}
               </span>{" "}
               {results.length === 1 ? "property" : "properties"} found
             </p>
-            <label className="flex items-center gap-2 text-sm text-slate-600">
+            <label className="flex items-center gap-2 font-ui text-sm text-spice">
               Sort by
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
-                className="rounded-md border border-slate-200 px-2 py-1.5 text-sm outline-none focus:border-brand-500"
+                className="rounded-md border border-marigold/40 px-2 py-1.5 text-sm outline-none focus:border-flame"
               >
                 <option value="newest">Newest first</option>
                 <option value="price_asc">Price: Low to High</option>
@@ -123,17 +123,17 @@ function PropertiesContent() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center rounded-xl border border-dashed border-slate-300 bg-white py-20 text-center">
-              <SearchX className="h-10 w-10 text-slate-300" />
-              <p className="mt-3 font-semibold text-slate-700">
+            <div className="flex flex-col items-center rounded-xl border-2 border-dashed border-marigold bg-white py-20 text-center">
+              <SearchX className="h-10 w-10 text-marigold/50" />
+              <p className="mt-3 font-ui font-bold text-ink">
                 No properties match your filters
               </p>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 font-ui text-sm text-spice/70">
                 Try widening your search or resetting the filters.
               </p>
               <button
                 onClick={() => setFilters(defaultFilters)}
-                className="mt-4 rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
+                className="mt-4 rounded-full bg-flame px-6 py-2.5 font-ui text-sm font-bold text-white transition hover:bg-flame-dark"
               >
                 Reset Filters
               </button>
@@ -149,7 +149,7 @@ export default function PropertiesPage() {
   return (
     <Suspense
       fallback={
-        <div className="mx-auto max-w-7xl px-4 py-20 text-center text-slate-400">
+        <div className="mx-auto max-w-7xl px-4 py-20 text-center font-ui text-spice/60">
           Loading properties…
         </div>
       }

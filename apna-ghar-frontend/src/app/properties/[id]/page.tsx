@@ -87,16 +87,16 @@ export default function PropertyDetailPage({
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       {/* Breadcrumb */}
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:text-brand-600">
+      <nav className="font-ui text-sm text-spice/70">
+        <Link href="/" className="hover:text-flame">
           Home
         </Link>
         <span className="mx-2">/</span>
-        <Link href="/properties" className="hover:text-brand-600">
+        <Link href="/properties" className="hover:text-flame">
           Properties
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-slate-700">{property.city}</span>
+        <span className="text-spice">{property.city}</span>
       </nav>
 
       {/* Gallery */}
@@ -110,31 +110,31 @@ export default function PropertyDetailPage({
       </div>
 
       {/* Header */}
-      <div className="mt-6 flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-start sm:justify-between">
+      <div className="mt-6 flex flex-col gap-4 border-b-2 border-dotted border-marigold pb-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+          <h1 className="font-display text-3xl text-rani text-painted sm:text-4xl">
             {property.title}
           </h1>
-          <p className="mt-1.5 flex items-center gap-1.5 text-slate-500">
-            <MapPin className="h-4 w-4" />
+          <p className="mt-1.5 flex items-center gap-1.5 font-ui text-spice">
+            <MapPin className="h-4 w-4 text-marigold" />
             {property.locality}, {property.city}, {property.state}
           </p>
           {property.vastuCompliant && (
-            <span className="mt-2.5 inline-flex items-center gap-1.5 rounded-md bg-accent-50 px-2.5 py-1 text-xs font-semibold text-accent-700">
-              <Flame className="h-3.5 w-3.5 text-brand-500" />
+            <span className="mt-2.5 inline-flex items-center gap-1.5 rounded-md bg-teal/10 px-2.5 py-1 font-ui text-xs font-bold text-teal">
+              <Flame className="h-3.5 w-3.5 text-flame" />
               Vāstu Shastra Compliant
             </span>
           )}
         </div>
         <div className="sm:text-right">
-          <p className="text-2xl font-extrabold text-brand-700 sm:text-3xl">
+          <p className="font-display text-3xl text-flame sm:text-4xl">
             {formatPrice(property.price, property.listingType)}
           </p>
           <div className="mt-2 flex gap-2 sm:justify-end">
-            <button className="flex items-center gap-1.5 rounded-md border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50">
+            <button className="flex items-center gap-1.5 rounded-full border border-marigold/40 px-4 py-1.5 font-ui text-sm font-medium text-spice transition hover:bg-sun/20">
               <Heart className="h-4 w-4" /> Save
             </button>
-            <button className="flex items-center gap-1.5 rounded-md border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50">
+            <button className="flex items-center gap-1.5 rounded-full border border-marigold/40 px-4 py-1.5 font-ui text-sm font-medium text-spice transition hover:bg-sun/20">
               <Share2 className="h-4 w-4" /> Share
             </button>
           </div>
@@ -149,14 +149,14 @@ export default function PropertyDetailPage({
             {specs.map((s) => (
               <div
                 key={s.label}
-                className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-3"
+                className="flex items-center gap-3 rounded-lg border border-marigold/40 bg-white p-3"
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-600">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-sun/30 text-flame">
                   <s.icon className="h-4 w-4" />
                 </span>
                 <div>
-                  <p className="text-xs text-slate-400">{s.label}</p>
-                  <p className="text-sm font-semibold text-slate-800">
+                  <p className="font-ui text-xs text-spice/60">{s.label}</p>
+                  <p className="font-ui text-sm font-bold text-ink">
                     {s.value}
                   </p>
                 </div>
@@ -166,27 +166,27 @@ export default function PropertyDetailPage({
 
           {/* Description */}
           <section className="mt-8">
-            <h2 className="text-lg font-bold text-slate-900">Overview</h2>
-            <p className="mt-3 leading-relaxed text-slate-600">
+            <h2 className="font-ui text-lg font-bold text-ink">Overview</h2>
+            <p className="mt-3 leading-relaxed text-spice">
               {property.description}
             </p>
-            <p className="mt-3 text-sm text-slate-400">
+            <p className="mt-3 font-ui text-sm text-spice/60">
               {postedLabel(property.postedDaysAgo)}
             </p>
           </section>
 
           {/* Amenities */}
           <section className="mt-8">
-            <h2 className="text-lg font-bold text-slate-900">
+            <h2 className="font-ui text-lg font-bold text-ink">
               Amenities &amp; Features
             </h2>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {property.amenities.map((a) => (
                 <div
                   key={a}
-                  className="flex items-center gap-2 text-sm text-slate-600"
+                  className="flex items-center gap-2 font-ui text-sm text-spice"
                 >
-                  <CheckCircle2 className="h-4 w-4 text-brand-600" />
+                  <CheckCircle2 className="h-4 w-4 text-teal" />
                   {a}
                 </div>
               ))}
@@ -195,13 +195,13 @@ export default function PropertyDetailPage({
 
           {/* Location */}
           <section className="mt-8">
-            <h2 className="text-lg font-bold text-slate-900">Location</h2>
-            <div className="mt-3 flex h-56 flex-col items-center justify-center rounded-xl border border-slate-200 bg-gradient-to-br from-brand-50 to-slate-100">
-              <MapPin className="h-8 w-8 text-brand-600" />
-              <p className="mt-2 font-semibold text-slate-700">
+            <h2 className="font-ui text-lg font-bold text-ink">Location</h2>
+            <div className="mt-3 flex h-56 flex-col items-center justify-center rounded-xl border border-marigold/40 bg-gradient-to-br from-sun/30 to-marigold/10">
+              <MapPin className="h-8 w-8 text-flame" />
+              <p className="mt-2 font-ui font-bold text-ink">
                 {property.locality}, {property.city}
               </p>
-              <p className="text-sm text-slate-400">
+              <p className="font-ui text-sm text-spice/60">
                 Interactive map will appear here
               </p>
             </div>
@@ -210,17 +210,19 @@ export default function PropertyDetailPage({
 
         {/* Sidebar — contact */}
         <aside className="lg:col-span-1">
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-card lg:sticky lg:top-20">
-            <p className="text-sm text-slate-400">Listed by</p>
+          <div className="rounded-xl border-2 border-ink bg-white p-5 shadow-sticker lg:sticky lg:top-20">
+            <p className="font-ui text-sm text-spice/60">Listed by</p>
             <div className="mt-2 flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-100 text-lg font-bold text-brand-700">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-sun/40 font-display text-lg text-flame">
                 {property.owner.name.charAt(0)}
               </span>
               <div>
-                <p className="font-semibold text-slate-900">
+                <p className="font-ui font-bold text-ink">
                   {property.owner.name}
                 </p>
-                <p className="text-xs text-slate-500">{property.owner.type}</p>
+                <p className="font-ui text-xs text-spice/70">
+                  {property.owner.type}
+                </p>
               </div>
             </div>
 
@@ -228,27 +230,27 @@ export default function PropertyDetailPage({
               <input
                 type="text"
                 placeholder="Your name"
-                className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-500"
+                className="w-full rounded-md border border-marigold/40 px-3 py-2 text-sm outline-none focus:border-flame"
               />
               <input
                 type="tel"
                 placeholder="Phone number"
-                className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-500"
+                className="w-full rounded-md border border-marigold/40 px-3 py-2 text-sm outline-none focus:border-flame"
               />
               <textarea
                 rows={3}
                 placeholder={`I'm interested in "${property.title}". Please share more details.`}
-                className="w-full resize-none rounded-md border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-500"
+                className="w-full resize-none rounded-md border border-marigold/40 px-3 py-2 text-sm outline-none focus:border-flame"
               />
             </div>
 
-            <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">
+            <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-flame px-4 py-2.5 font-ui text-sm font-bold text-white transition hover:bg-flame-dark">
               <Phone className="h-4 w-4" /> Contact Owner
             </button>
-            <button className="mt-2 flex w-full items-center justify-center gap-2 rounded-md border border-brand-600 px-4 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50">
+            <button className="mt-2 flex w-full items-center justify-center gap-2 rounded-full border-2 border-flame px-4 py-2.5 font-ui text-sm font-bold text-flame transition hover:bg-flame/10">
               <CalendarDays className="h-4 w-4" /> Schedule a Visit
             </button>
-            <p className="mt-3 text-center text-xs text-slate-400">
+            <p className="mt-3 text-center font-ui text-xs text-spice/60">
               No brokerage · Verified listing
             </p>
           </div>
@@ -258,7 +260,7 @@ export default function PropertyDetailPage({
       {/* Similar properties */}
       {similar.length > 0 && (
         <section className="mt-14">
-          <h2 className="text-xl font-bold text-slate-900">
+          <h2 className="font-display text-2xl text-rani text-painted">
             Similar Properties in {property.city}
           </h2>
           <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
