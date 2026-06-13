@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Self-hosted font families (loaded via @fontsource in layout.tsx) */
+  --font-display: "Yatra One";
+  --font-ui: "Baloo 2 Variable";
+  --font-body: "Work Sans Variable";
+}
+
 html,
 body {
   background: #fff6e6;
