@@ -5,7 +5,7 @@
 
 ## Overview
 
-Add a .NET (ASP.NET Core, .NET 8) backend API for ApnaGhar and wire the
+Add a .NET (ASP.NET Core, .NET 10 LTS) backend API for ApnaGhar and wire the
 existing Next.js frontend to it, replacing the hardcoded `mock-data.ts` source
 of truth. The API provides full CRUD over property listings with JWT
 authentication and ownership-based authorization. Storage is EF Core + SQLite
