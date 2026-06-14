@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Bed, Bath, Maximize, MapPin, Heart, Star, Flame } from "lucide-react";
 import type { Property } from "@/types/property";
-import { formatPrice, formatArea, postedLabel } from "@/lib/utils";
+import { formatPrice, formatArea, postedLabel, withWidth } from "@/lib/utils";
 
 export default function PropertyCard({ property }: { property: Property }) {
   const isRent = property.listingType === "rent";
@@ -14,7 +14,7 @@ export default function PropertyCard({ property }: { property: Property }) {
     >
       <div className="relative h-52 w-full overflow-hidden">
         <Image
-          src={property.images[0]}
+          src={withWidth(property.images[0], 600)}
           alt={property.title}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"

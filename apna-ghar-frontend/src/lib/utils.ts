@@ -24,6 +24,19 @@ export function formatArea(sqft: number): string {
   return `${sqft.toLocaleString("en-IN")} sq.ft.`;
 }
 
+// Rewrites the `w` query param of a remote image URL so each usage requests an
+// appropriately-sized variant (Unsplash honours `w`). Returns non-URL strings
+// (e.g. local /uploads paths) unchanged.
+export function withWidth(src: string, width: number): string {
+  try {
+    const url = new URL(src);
+    url.searchParams.set("w", String(width));
+    return url.toString();
+  } catch {
+    return src;
+  }
+}
+
 export function postedLabel(daysAgo: number): string {
   if (daysAgo === 0) return "Posted today";
   if (daysAgo === 1) return "Posted yesterday";
