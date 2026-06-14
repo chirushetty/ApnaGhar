@@ -1,23 +1,59 @@
+using ApnaGhar.Api.Data;
+using ApnaGhar.Api.Data.Repositories;
+using ApnaGhar.Api.Data.Seed;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var provider = builder.Configuration["DatabaseProvider"] ?? "Sqlite";
+var connectionString = builder.Configuration.GetConnectionString("Default");
+
+builder.Services.AddDbContext<ApnaGharDbContext>(options =>
+{
+    switch (provider)
+    {
+        case "Sqlite":
+            options.UseSqlite(connectionString);
+            break;
+        default:
+            throw new InvalidOperationException($"Unsupported DatabaseProvider '{provider}'.");
+    }
+});
+
+builder.Services.AddScoped<IPropertyRepository, EfPropertyRepository>();
+builder.Services.AddScoped<IUserRepository, EfUserRepository>();
+
+var corsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+                  ?? Array.Empty<string>();
+builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
+    p.WithOrigins(corsOrigins).AllowAnyHeader().AllowAnyMethod()));
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Apply migrations + seed on startup.
+using (var scope = app.Services.CreateScope())
 {
-    app.MapOpenApi();
+    var db = scope.ServiceProvider.GetRequiredService<ApnaGharDbContext>();
+    db.Database.Migrate();
+    DbSeeder.Seed(db);
 }
 
-app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
+app.UseStaticFiles(); // serves wwwroot/uploads
+app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { } // exposed for WebApplicationFactory in tests
