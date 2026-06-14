@@ -1,3 +1,4 @@
+using ApnaGhar.Api.Auth;
 using ApnaGhar.Api.Data.Repositories;
 using ApnaGhar.Api.Dtos;
 using ApnaGhar.Api.Services;
@@ -11,7 +12,13 @@ namespace ApnaGhar.Api.Controllers;
 public class PropertiesController : ControllerBase
 {
     private readonly IPropertyService _service;
-    public PropertiesController(IPropertyService service) => _service = service;
+    private readonly ICurrentUser _currentUser;
+
+    public PropertiesController(IPropertyService service, ICurrentUser currentUser)
+    {
+        _service = service;
+        _currentUser = currentUser;
+    }
 
     [HttpGet]
     [AllowAnonymous]
@@ -36,4 +43,13 @@ public class PropertiesController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<PropertyResponse>>> Similar(Guid id, CancellationToken ct) =>
         Ok(await _service.GetSimilarAsync(id, ct));
+
+    [HttpPost]
+    [Authorize]
+    public async Task<ActionResult<PropertyResponse>> Create(CreatePropertyRequest request, CancellationToken ct)
+    {
+        if (_currentUser.Id is not { } userId) return Unauthorized();
+        var created = await _service.CreateAsync(request, userId, ct);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
 }

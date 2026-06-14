@@ -9,4 +9,5 @@ public interface IPropertyService
     Task<PropertyResponse?> GetAsync(Guid id, CancellationToken ct = default);
     Task<IReadOnlyList<PropertyResponse>> GetFeaturedAsync(CancellationToken ct = default);
     Task<IReadOnlyList<PropertyResponse>> GetSimilarAsync(Guid id, CancellationToken ct = default);
+    Task<PropertyResponse> CreateAsync(CreatePropertyRequest request, Guid userId, CancellationToken ct = default);
 }
