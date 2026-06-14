@@ -1,6 +1,8 @@
 using ApnaGhar.Api.Data;
 using ApnaGhar.Api.Data.Repositories;
 using ApnaGhar.Api.Data.Seed;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,6 +76,8 @@ builder.Services.AddOptions<Microsoft.AspNetCore.Authentication.JwtBearer.JwtBea
         });
 
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<ApnaGhar.Api.Validators.CreatePropertyRequestValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
