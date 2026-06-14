@@ -111,4 +111,21 @@ public class PropertyService : IPropertyService
         await _repo.DeleteAsync(p, ct);
         return WriteOutcome.Deleted;
     }
+
+    public async Task<(WriteOutcome Outcome, PropertyResponse? Property)> AddImageAsync(
+        Guid id, string url, Guid userId, CancellationToken ct = default)
+    {
+        // Load read-only snapshot to check ownership and compute sort order.
+        var p = await _repo.GetByIdAsync(id, ct);
+        if (p is null) return (WriteOutcome.NotFound, null);
+        if (p.CreatedByUserId != userId) return (WriteOutcome.Forbidden, null);
+
+        var nextOrder = p.Images.Count == 0 ? 0 : p.Images.Max(i => i.SortOrder) + 1;
+        var image = new PropertyImage { Id = Guid.NewGuid(), Url = url, SortOrder = nextOrder, PropertyId = id };
+        await _repo.AppendImageAsync(id, image, ct);
+
+        // Reload to return the up-to-date property with all images.
+        var updated = (await _repo.GetByIdAsync(id, ct))!;
+        return (WriteOutcome.Updated, updated.ToResponse());
+    }
 }

@@ -15,4 +15,6 @@ public interface IPropertyService
     Task<(WriteOutcome Outcome, PropertyResponse? Property)> UpdateAsync(
         Guid id, UpdatePropertyRequest request, Guid userId, CancellationToken ct = default);
     Task<WriteOutcome> DeleteAsync(Guid id, Guid userId, CancellationToken ct = default);
+    Task<(WriteOutcome Outcome, PropertyResponse? Property)> AddImageAsync(
+        Guid id, string url, Guid userId, CancellationToken ct = default);
 }

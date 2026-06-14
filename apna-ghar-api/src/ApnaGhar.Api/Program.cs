@@ -23,6 +23,7 @@ builder.Services.AddDbContext<ApnaGharDbContext>(options =>
 builder.Services.AddScoped<IPropertyRepository, EfPropertyRepository>();
 builder.Services.AddScoped<IUserRepository, EfUserRepository>();
 builder.Services.AddScoped<ApnaGhar.Api.Services.IPropertyService, ApnaGhar.Api.Services.PropertyService>();
+builder.Services.AddScoped<ApnaGhar.Api.Storage.IImageStorage, ApnaGhar.Api.Storage.LocalDiskImageStorage>();
 
 builder.Services.Configure<ApnaGhar.Api.Auth.JwtOptions>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddHttpContextAccessor();

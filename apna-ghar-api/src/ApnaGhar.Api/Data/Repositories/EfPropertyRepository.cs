@@ -132,4 +132,11 @@ public class EfPropertyRepository : IPropertyRepository
         _ctx.Properties.Remove(property);
         await _ctx.SaveChangesAsync(ct);
     }
+
+    public async Task AppendImageAsync(Guid propertyId, PropertyImage image, CancellationToken ct = default)
+    {
+        image.PropertyId = propertyId;
+        _ctx.PropertyImages.Add(image);
+        await _ctx.SaveChangesAsync(ct);
+    }
 }

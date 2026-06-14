@@ -16,4 +16,5 @@ public interface IPropertyRepository
     Task AddAsync(Property property, CancellationToken ct = default);
     Task UpdateAsync(Property property, CancellationToken ct = default);
     Task DeleteAsync(Property property, CancellationToken ct = default);
+    Task AppendImageAsync(Guid propertyId, PropertyImage image, CancellationToken ct = default);
 }
