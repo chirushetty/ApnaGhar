@@ -47,4 +47,22 @@ public class AuthTests : IClassFixture<ApiFactory>
         var login = await _client.PostAsJsonAsync("/api/auth/login", new LoginRequest(email, "wrong"));
         login.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
+
+    [Fact]
+    public async Task Me_WithToken_ReturnsCurrentUser()
+    {
+        var rawEmail = $"U{Guid.NewGuid():N}@Example.com";
+        var reg = await _client.PostAsJsonAsync("/api/auth/register",
+            new RegisterRequest(rawEmail, "Passw0rd!", "Me User"));
+        var body = await reg.Content.ReadFromJsonAsync<AuthResponse>();
+
+        var req = new HttpRequestMessage(HttpMethod.Get, "/api/auth/me");
+        req.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", body!.Token);
+        var res = await _client.SendAsync(req);
+
+        res.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        var me = await res.Content.ReadFromJsonAsync<UserDto>();
+        me!.Email.Should().Be(rawEmail.ToLowerInvariant());
+        me.DisplayName.Should().Be("Me User");
+    }
 }

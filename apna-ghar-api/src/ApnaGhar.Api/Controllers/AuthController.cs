@@ -54,7 +54,7 @@ public class AuthController : ControllerBase
         if (_currentUser.Id is not { } id) return Unauthorized();
         var email = User.FindFirstValue(JwtRegisteredClaimNames.Email)
                     ?? User.FindFirstValue(ClaimTypes.Email) ?? "";
-        var name = User.FindFirstValue("name") ?? "";
+        var name = User.FindFirstValue(JwtRegisteredClaimNames.Name) ?? "";
         return Ok(new UserDto(id, email, name));
     }
 }

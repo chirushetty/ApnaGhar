@@ -39,6 +39,8 @@ builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var jwtKey = jwtSection["Key"] ?? throw new InvalidOperationException("Jwt:Key is not configured.");
+if (System.Text.Encoding.UTF8.GetBytes(jwtKey).Length < 32)
+    throw new InvalidOperationException("Jwt:Key must be at least 32 bytes (256 bits) for HMAC-SHA256.");
 builder.Services
     .AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -50,11 +52,25 @@ builder.Services
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSection["Issuer"],
-            ValidAudience = jwtSection["Audience"],
-            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
-                System.Text.Encoding.UTF8.GetBytes(jwtKey))
+            ValidAudience = jwtSection["Audience"]
+            // IssuerSigningKey is set via IPostConfigureOptions<JwtBearerOptions>
+            // so it always stays in sync with IOptions<JwtOptions> (used by TokenService).
         };
     });
+
+// Wire the signing key from JwtOptions so token creation (TokenService) and
+// token validation (JwtBearer middleware) always use the same key material.
+builder.Services.AddOptions<Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions>(
+    Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)
+    .PostConfigure<Microsoft.Extensions.Options.IOptions<ApnaGhar.Api.Auth.JwtOptions>>(
+        (bearerOpts, jwtOpts) =>
+        {
+            var key = jwtOpts.Value.Key
+                      ?? throw new InvalidOperationException("Jwt:Key is not configured.");
+            bearerOpts.TokenValidationParameters.IssuerSigningKey =
+                new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
+                    System.Text.Encoding.UTF8.GetBytes(key));
+        });
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -6,12 +6,16 @@ namespace ApnaGhar.Api.Auth;
 
 public class CurrentUser : ICurrentUser
 {
-    public Guid? Id { get; }
+    private readonly IHttpContextAccessor _accessor;
+    public CurrentUser(IHttpContextAccessor accessor) => _accessor = accessor;
 
-    public CurrentUser(IHttpContextAccessor accessor)
+    public Guid? Id
     {
-        var sub = accessor.HttpContext?.User.FindFirstValue(JwtRegisteredClaimNames.Sub)
-                  ?? accessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (Guid.TryParse(sub, out var id)) Id = id;
+        get
+        {
+            var sub = _accessor.HttpContext?.User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+                      ?? _accessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return Guid.TryParse(sub, out var id) ? id : null;
+        }
     }
 }
