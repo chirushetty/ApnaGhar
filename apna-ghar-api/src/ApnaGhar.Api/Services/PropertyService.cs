@@ -60,4 +60,55 @@ public class PropertyService : IPropertyService
         await _repo.AddAsync(property, ct);
         return property.ToResponse();
     }
+
+    public async Task<(WriteOutcome Outcome, PropertyResponse? Property)> UpdateAsync(
+        Guid id, UpdatePropertyRequest r, Guid userId, CancellationToken ct = default)
+    {
+        var p = await _repo.GetByIdTrackedAsync(id, ct);
+        if (p is null) return (WriteOutcome.NotFound, null);
+        if (p.CreatedByUserId != userId) return (WriteOutcome.Forbidden, null);
+
+        p.Title = r.Title;
+        p.Description = r.Description;
+        p.ListingType = Enum.Parse<ListingType>(r.ListingType, true);
+        p.PropertyType = Enum.Parse<PropertyType>(r.PropertyType, true);
+        p.Price = r.Price;
+        p.AreaSqft = r.AreaSqft;
+        p.Bedrooms = r.Bedrooms;
+        p.Bathrooms = r.Bathrooms;
+        p.IsFurnished = r.IsFurnished;
+        p.ParkingAvailable = r.ParkingAvailable;
+        p.VastuCompliant = r.VastuCompliant;
+        p.Locality = r.Locality;
+        p.City = r.City;
+        p.State = r.State;
+        p.IsFeatured = r.IsFeatured;
+        p.OwnerName = r.OwnerName;
+        p.OwnerType = Enum.Parse<OwnerType>(r.OwnerType, true);
+        p.OwnerPhone = r.OwnerPhone;
+
+        var newImages = r.Images
+            .Select((u, i) => new PropertyImage { Id = Guid.NewGuid(), Url = u, SortOrder = i, PropertyId = p.Id })
+            .ToList();
+        var newAmenities = r.Amenities
+            .Select(a => new PropertyAmenity { Id = Guid.NewGuid(), Name = a, PropertyId = p.Id })
+            .ToList();
+
+        await _repo.UpdateAsync(p, ct);
+        await _repo.ReplaceChildrenAsync(p.Id, newImages, newAmenities, ct);
+
+        // Refresh the response with updated children.
+        p.Images = newImages;
+        p.Amenities = newAmenities;
+        return (WriteOutcome.Updated, p.ToResponse());
+    }
+
+    public async Task<WriteOutcome> DeleteAsync(Guid id, Guid userId, CancellationToken ct = default)
+    {
+        var p = await _repo.GetByIdTrackedAsync(id, ct);
+        if (p is null) return WriteOutcome.NotFound;
+        if (p.CreatedByUserId != userId) return WriteOutcome.Forbidden;
+        await _repo.DeleteAsync(p, ct);
+        return WriteOutcome.Deleted;
+    }
 }

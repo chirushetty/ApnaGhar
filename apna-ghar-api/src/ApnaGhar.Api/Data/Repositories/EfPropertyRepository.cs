@@ -70,6 +70,12 @@ public class EfPropertyRepository : IPropertyRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(p => p.Id == id, ct);
 
+    public Task<Property?> GetByIdTrackedAsync(Guid id, CancellationToken ct = default) =>
+        _ctx.Properties
+            .Include(p => p.Images)
+            .Include(p => p.Amenities)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
     public async Task<IReadOnlyList<Property>> GetFeaturedAsync(CancellationToken ct = default) =>
         await _ctx.Properties
             .Include(p => p.Images)
@@ -100,7 +106,24 @@ public class EfPropertyRepository : IPropertyRepository
 
     public async Task UpdateAsync(Property property, CancellationToken ct = default)
     {
-        _ctx.Properties.Update(property);
+        // If already tracked (e.g. loaded via GetByIdTrackedAsync), SaveChanges picks up
+        // changes automatically. Only call Update() for detached entities.
+        if (_ctx.Entry(property).State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+            _ctx.Properties.Update(property);
+        await _ctx.SaveChangesAsync(ct);
+    }
+
+    public async Task ReplaceChildrenAsync(Guid propertyId,
+        IReadOnlyList<PropertyImage> newImages,
+        IReadOnlyList<PropertyAmenity> newAmenities,
+        CancellationToken ct = default)
+    {
+        var oldImages = await _ctx.PropertyImages.Where(i => i.PropertyId == propertyId).ToListAsync(ct);
+        var oldAmenities = await _ctx.PropertyAmenities.Where(a => a.PropertyId == propertyId).ToListAsync(ct);
+        _ctx.PropertyImages.RemoveRange(oldImages);
+        _ctx.PropertyAmenities.RemoveRange(oldAmenities);
+        _ctx.PropertyImages.AddRange(newImages);
+        _ctx.PropertyAmenities.AddRange(newAmenities);
         await _ctx.SaveChangesAsync(ct);
     }
 

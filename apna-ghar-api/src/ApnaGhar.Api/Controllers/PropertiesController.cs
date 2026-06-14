@@ -52,4 +52,34 @@ public class PropertiesController : ControllerBase
         var created = await _service.CreateAsync(request, userId, ct);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
+
+    [HttpPut("{id:guid}")]
+    [Authorize]
+    public async Task<ActionResult<PropertyResponse>> Update(Guid id, UpdatePropertyRequest request, CancellationToken ct)
+    {
+        if (_currentUser.Id is not { } userId) return Unauthorized();
+        var (outcome, property) = await _service.UpdateAsync(id, request, userId, ct);
+        return outcome switch
+        {
+            WriteOutcome.Updated => Ok(property),
+            WriteOutcome.NotFound => NotFound(),
+            WriteOutcome.Forbidden => Forbid(),
+            _ => BadRequest()
+        };
+    }
+
+    [HttpDelete("{id:guid}")]
+    [Authorize]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
+    {
+        if (_currentUser.Id is not { } userId) return Unauthorized();
+        var outcome = await _service.DeleteAsync(id, userId, ct);
+        return outcome switch
+        {
+            WriteOutcome.Deleted => NoContent(),
+            WriteOutcome.NotFound => NotFound(),
+            WriteOutcome.Forbidden => Forbid(),
+            _ => BadRequest()
+        };
+    }
 }
