@@ -102,12 +102,17 @@ public class PropertiesController : ControllerBase
         await using var stream = file.OpenReadStream();
         var url = await _imageStorage.SaveAsync(stream, file.FileName, ct);
         var (outcome, property) = await _service.AddImageAsync(id, url, userId, ct);
-        return outcome switch
+        if (outcome != WriteOutcome.Updated)
         {
-            WriteOutcome.Updated => Ok(property),
-            WriteOutcome.NotFound => NotFound(),
-            WriteOutcome.Forbidden => Forbid(),
-            _ => BadRequest()
-        };
+            // Clean up the file that was already written to avoid leaving an orphan on disk.
+            await _imageStorage.DeleteAsync(url, ct);
+            return outcome switch
+            {
+                WriteOutcome.NotFound => NotFound(),
+                WriteOutcome.Forbidden => Forbid(),
+                _ => BadRequest()
+            };
+        }
+        return Ok(property);
     }
 }

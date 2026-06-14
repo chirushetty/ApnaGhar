@@ -104,26 +104,21 @@ public class EfPropertyRepository : IPropertyRepository
         await _ctx.SaveChangesAsync(ct);
     }
 
-    public async Task UpdateAsync(Property property, CancellationToken ct = default)
-    {
-        // If already tracked (e.g. loaded via GetByIdTrackedAsync), SaveChanges picks up
-        // changes automatically. Only call Update() for detached entities.
-        if (_ctx.Entry(property).State == Microsoft.EntityFrameworkCore.EntityState.Detached)
-            _ctx.Properties.Update(property);
-        await _ctx.SaveChangesAsync(ct);
-    }
-
-    public async Task ReplaceChildrenAsync(Guid propertyId,
+    public async Task UpdateWithChildrenAsync(Property tracked,
         IReadOnlyList<PropertyImage> newImages,
         IReadOnlyList<PropertyAmenity> newAmenities,
         CancellationToken ct = default)
     {
-        var oldImages = await _ctx.PropertyImages.Where(i => i.PropertyId == propertyId).ToListAsync(ct);
-        var oldAmenities = await _ctx.PropertyAmenities.Where(a => a.PropertyId == propertyId).ToListAsync(ct);
+        // The tracked entity already has dirty scalar fields — no need to call Update().
+        // Replace children by operating on the child DbSets directly so we never mutate
+        // the navigation collections on the tracked entity (which would confuse EF).
+        var oldImages = await _ctx.PropertyImages.Where(i => i.PropertyId == tracked.Id).ToListAsync(ct);
+        var oldAmenities = await _ctx.PropertyAmenities.Where(a => a.PropertyId == tracked.Id).ToListAsync(ct);
         _ctx.PropertyImages.RemoveRange(oldImages);
         _ctx.PropertyAmenities.RemoveRange(oldAmenities);
         _ctx.PropertyImages.AddRange(newImages);
         _ctx.PropertyAmenities.AddRange(newAmenities);
+        // Single SaveChangesAsync flushes scalar changes (tracked entity) + child replacements atomically.
         await _ctx.SaveChangesAsync(ct);
     }
 

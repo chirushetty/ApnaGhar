@@ -18,15 +18,32 @@ public class StubImageStorage : IImageStorage
     public Task DeleteAsync(string url, CancellationToken ct = default) => Task.CompletedTask;
 }
 
-public class ImageUploadTests : IClassFixture<ApiFactory>
+/// <summary>
+/// Dedicated factory for image-upload tests. Registers <see cref="StubImageStorage"/> so
+/// tests never touch the real disk-storage implementation.
+/// </summary>
+public class ImageUploadApiFactory : ApiFactory
+{
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        base.ConfigureWebHost(builder);
+        builder.ConfigureServices(services =>
+        {
+            var storageDescriptor = services.SingleOrDefault(
+                d => d.ServiceType == typeof(IImageStorage));
+            if (storageDescriptor is not null) services.Remove(storageDescriptor);
+            services.AddSingleton<IImageStorage, StubImageStorage>();
+        });
+    }
+}
+
+public class ImageUploadTests : IClassFixture<ImageUploadApiFactory>
 {
     private readonly HttpClient _client;
-    private readonly ApiFactory _factory;
 
-    public ImageUploadTests(ApiFactory factory)
+    public ImageUploadTests(ImageUploadApiFactory factory)
     {
-        _factory = factory.WithStubImageStorage();
-        _client = _factory.CreateClient();
+        _client = factory.CreateClient();
     }
 
     [Fact]

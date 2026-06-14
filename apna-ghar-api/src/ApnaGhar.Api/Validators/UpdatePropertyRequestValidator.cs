@@ -15,6 +15,8 @@ public class UpdatePropertyRequestValidator : AbstractValidator<UpdatePropertyRe
         RuleFor(x => x.OwnerType).Must(v => Enum.TryParse<OwnerType>(v, true, out _)).WithMessage("Invalid owner type.");
         RuleFor(x => x.Price).GreaterThan(0);
         RuleFor(x => x.AreaSqft).GreaterThan(0);
+        RuleFor(x => x.Bedrooms).GreaterThanOrEqualTo(0);
+        RuleFor(x => x.Bathrooms).GreaterThanOrEqualTo(0);
         RuleFor(x => x.City).NotEmpty();
         RuleFor(x => x.Locality).NotEmpty();
         RuleFor(x => x.State).NotEmpty();

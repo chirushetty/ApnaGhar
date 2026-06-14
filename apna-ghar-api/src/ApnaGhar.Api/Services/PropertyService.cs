@@ -94,10 +94,11 @@ public class PropertyService : IPropertyService
             .Select(a => new PropertyAmenity { Id = Guid.NewGuid(), Name = a, PropertyId = p.Id })
             .ToList();
 
-        await _repo.UpdateAsync(p, ct);
-        await _repo.ReplaceChildrenAsync(p.Id, newImages, newAmenities, ct);
+        // Single SaveChangesAsync: scalar field changes on the tracked entity + child
+        // replacement all flush in one transaction.
+        await _repo.UpdateWithChildrenAsync(p, newImages, newAmenities, ct);
 
-        // Refresh the response with updated children.
+        // Build the response from the in-memory lists (DB is now consistent).
         p.Images = newImages;
         p.Amenities = newAmenities;
         return (WriteOutcome.Updated, p.ToResponse());

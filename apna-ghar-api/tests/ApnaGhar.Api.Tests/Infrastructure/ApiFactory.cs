@@ -13,8 +13,6 @@ namespace ApnaGhar.Api.Tests.Infrastructure;
 public class ApiFactory : WebApplicationFactory<Program>
 {
     private readonly SqliteConnection _conn = new("DataSource=:memory:");
-    private bool _useStubStorage;
-    public ApiFactory WithStubImageStorage() { _useStubStorage = true; return this; }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -29,14 +27,6 @@ public class ApiFactory : WebApplicationFactory<Program>
             services.Remove(descriptor);
 
             services.AddDbContext<ApnaGharDbContext>(o => o.UseSqlite(_conn));
-
-            if (_useStubStorage)
-            {
-                var storageDescriptor = services.SingleOrDefault(
-                    d => d.ServiceType == typeof(ApnaGhar.Api.Storage.IImageStorage));
-                if (storageDescriptor is not null) services.Remove(storageDescriptor);
-                services.AddSingleton<ApnaGhar.Api.Storage.IImageStorage, ApnaGhar.Api.Tests.Api.StubImageStorage>();
-            }
         });
 
         builder.ConfigureAppConfiguration((_, config) =>
