@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # Apna Ghar pre-push hook: fire-and-forget KB regeneration. Never blocks push.
 REGEN="/c/Users/chirag/basic-memory-apna-ghar/scripts/regenerate-kb.sh"
-if [ -x "$REGEN" ]; then
-  # Detach fully so the push is never delayed or affected by regen outcome.
-  ( setsid bash "$REGEN" >/dev/null 2>&1 & ) 2>/dev/null \
-    || ( nohup bash "$REGEN" >/dev/null 2>&1 & )
+if [ -f "$REGEN" ]; then
+  # Git Bash on Windows has no `setsid`, and a `nohup ... &` child does NOT
+  # survive the push process exiting. PowerShell Start-Process launches a
+  # genuinely detached, hidden process that outlives this hook.
+  powershell.exe -NoProfile -Command \
+    "Start-Process -FilePath 'bash.exe' -ArgumentList '$REGEN' -WindowStyle Hidden" \
+    >/dev/null 2>&1
 fi
 exit 0
