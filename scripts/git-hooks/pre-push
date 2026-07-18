@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Apna Ghar pre-push hook: fire-and-forget KB regeneration. Never blocks push.
+REGEN="/c/Users/chirag/basic-memory-apna-ghar/scripts/regenerate-kb.sh"
+if [ -x "$REGEN" ]; then
+  # Detach fully so the push is never delayed or affected by regen outcome.
+  ( setsid bash "$REGEN" >/dev/null 2>&1 & ) 2>/dev/null \
+    || ( nohup bash "$REGEN" >/dev/null 2>&1 & )
+fi
+exit 0
