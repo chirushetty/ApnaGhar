@@ -8,6 +8,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Bunting from "@/components/layout/Bunting";
+import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
   title: "ApnaGhar — Rent & Buy Property in India",
@@ -23,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-texture antialiased">
-        <Bunting />
-        <Navbar />
-        <main className="min-h-[70vh]">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Bunting />
+          <Navbar />
+          <main className="min-h-[70vh]">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

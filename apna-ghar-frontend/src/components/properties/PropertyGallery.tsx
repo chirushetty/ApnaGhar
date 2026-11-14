@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Flame } from "lucide-react";
+import { withWidth } from "@/lib/utils";
 
 interface PropertyGalleryProps {
   images: string[];
@@ -19,10 +20,17 @@ export default function PropertyGallery({
 }: PropertyGalleryProps) {
   const [current, setCurrent] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  // Only download a full-size slide once it has been viewed (lazy). The first
+  // slide loads on open; the rest load on demand as the user navigates.
+  const [loaded, setLoaded] = useState<Set<number>>(() => new Set([0]));
 
   const count = images.length;
-  const go = (delta: number) =>
-    setCurrent((c) => (c + delta + count) % count);
+  const show = (i: number) => {
+    const idx = ((i % count) + count) % count;
+    setCurrent(idx);
+    setLoaded((prev) => (prev.has(idx) ? prev : new Set(prev).add(idx)));
+  };
+  const go = (delta: number) => show(current + delta);
 
   return (
     <div>
@@ -38,20 +46,22 @@ export default function PropertyGallery({
           setTouchStartX(null);
         }}
       >
-        {images.map((src, i) => (
-          <Image
-            key={i}
-            src={src}
-            alt={`${title} — photo ${i + 1}`}
-            fill
-            sizes="(max-width: 1024px) 100vw, 66vw"
-            priority={i === 0}
-            className={
-              "object-cover transition-opacity duration-500 " +
-              (i === current ? "opacity-100" : "opacity-0")
-            }
-          />
-        ))}
+        {images.map((src, i) =>
+          loaded.has(i) ? (
+            <Image
+              key={i}
+              src={withWidth(src, 1200)}
+              alt={`${title} — photo ${i + 1}`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              priority={i === 0}
+              className={
+                "object-cover transition-opacity duration-500 " +
+                (i === current ? "opacity-100" : "opacity-0")
+              }
+            />
+          ) : null,
+        )}
 
         {/* Badges */}
         <span
@@ -100,7 +110,7 @@ export default function PropertyGallery({
             {images.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrent(i)}
+                onClick={() => show(i)}
                 aria-label={`Go to photo ${i + 1}`}
                 className={
                   "h-2 rounded-full transition-all " +
@@ -118,7 +128,7 @@ export default function PropertyGallery({
           {images.map((src, i) => (
             <button
               key={i}
-              onClick={() => setCurrent(i)}
+              onClick={() => show(i)}
               className={
                 "relative h-16 w-24 shrink-0 overflow-hidden rounded-lg transition " +
                 (i === current
@@ -127,7 +137,7 @@ export default function PropertyGallery({
               }
             >
               <Image
-                src={src}
+                src={withWidth(src, 160)}
                 alt={`${title} thumbnail ${i + 1}`}
                 fill
                 sizes="96px"
